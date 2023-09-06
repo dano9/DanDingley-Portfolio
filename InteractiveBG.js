@@ -241,11 +241,11 @@ var GameStart = function Start()
     cHeight = canvas.height /scaling;
     if (isMobile)
     {
-    ctx.fillStyle = "black";
+        ctx.fillStyle = "purple";
     }
     else
     {
-        ctx.fillStyle = "purple";
+        ctx.fillStyle = "black";
     }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
