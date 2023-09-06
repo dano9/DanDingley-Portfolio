@@ -6,6 +6,23 @@ let mouseX =0; let mouseY = 0;
 let cWidth = window.innerWidth / scaling;
 let cHeight = window.innerHeight / scaling;
 
+let touchHandler = function(event) {
+    let x = 0, y = 0;
+  
+    if (event.touches && event.touches[0]) {
+        x = event.touches[0].clientX;
+        y = event.touches[0].clientY;
+    } else if (event.originalEvent && event.originalEvent.changedTouches[0]) {
+        x = event.originalEvent.changedTouches[0].clientX;
+        y = event.originalEvent.changedTouches[0].clientY;
+    } else if (event.clientX && event.clientY) {
+        x = event.clientX;
+        y = event.clientY;
+    }
+    mouseX = x;
+    mouseY = y;
+  }
+
 class LightWorm {
     constructor(wli, x, y, xv, yv) {
         // Constructor: initialize object properties
@@ -201,16 +218,9 @@ function SetupEvents(isMobile = false)
     }
     else
     {
-        window.addEventListener("touchmove", (event) => {
-            mouseX = event.touches[0].clientX / scaling;
-            mouseY = event.touches[0].clientY / scaling;
-            mp = PixelSnap(mouseX,mouseY)
-            if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
-            {
-                mousePoses.unshift(mp);
-                DrawMouseWorm();
-            }
-        });
+        window.addEventListener('touchstart', touchHandler, false);
+        window.addEventListener('touchmove', touchHandler, false);
+        window.addEventListener('touchend', touchHandler, false);
     }
 }
 var GameStart = function Start()
