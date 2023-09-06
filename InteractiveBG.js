@@ -202,8 +202,8 @@ function SetupEvents(isMobile = false)
     else
     {
         window.addEventListener("touchmove", (event) => {
-            mouseX = event.clientX / scaling;
-            mouseY = event.clientY / scaling;
+            mouseX = event.touches[0].clientX / scaling;
+            mouseY = event.touches[0].clientY / scaling;
             mp = PixelSnap(mouseX,mouseY)
             if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
             {
