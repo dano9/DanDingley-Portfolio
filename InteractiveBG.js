@@ -21,6 +21,12 @@ let touchHandler = function(event) {
     }
     mouseX = x;
     mouseY = y;
+    mp = PixelSnap(mouseX,mouseY)
+    if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+    {
+        mousePoses.unshift(mp);
+        DrawMouseWorm();
+    }
   }
 
 class LightWorm {
