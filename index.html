@@ -16,15 +16,12 @@
 
         .mainContent {
             
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 50px;
             padding-top: 0px;
             position: absolute;
             align-self: center;
-            top: 0%;
-            left: 50%;
-            transform: translate(-50%, 10%);
             
             background-color: rgba(1,1,1,0.5);
             box-shadow: 0 0 10px #ff24ed;
@@ -33,8 +30,6 @@
             max-width: 1000px;
             position:absolute;
             display:flex;
-            left: 50%;
-            transform: translate(-50%, 2100px);
             
             background-color: rgba(1,1,1,0.1);
             box-shadow: 0 0 10px rgba(255, 36, 237,0.5);
@@ -54,10 +49,10 @@
         }
         h3 {
             padding-top: 0px;
-            padding-right: 50px;
-            padding-left: 50px;
+            padding-right: 10%;
+            padding-left: 15%;
             color: #ffffff;
-            font-size: 20px;
+            font-size: 120%;
         }
 
         p {
@@ -85,7 +80,7 @@
         {
             position: fixed;
             overflow: hidden;
-            transform: translate(10%, 10px);
+        
             z-index: 1;
 
             padding: 10px 20px; /* Adjust padding for button size */
@@ -140,7 +135,7 @@
         <div class="image">
             <img src="your-image.png" alt="Image Description" width = "200px">
         </div>
-        <h1>Daniel Dingley</h1>
+        <h1 id = "title">Daniel Dingley</h1>
         <p id = "examplePara">Welcome to my portfolio. I'm a passionate video game enthusiast, I love playing all sorts, watching the industry develop and I'm always working on a personal project in my spare time. As a result I have built up a wide range of knowledge and skills for developing games that I'd love to put to use and expand upon in bigger team projects.</p>
         
         
@@ -161,7 +156,7 @@
     </div>
     
     <canvas id="interactiveBackground"></canvas>
-    <div class="GameUI">
+    <div class="GameUI" id = "GameUI">
         <h3 id ="wormLength">Length:10/20000</h3>
         <h3 id ="highScore">HighScore: 0</h3>
         <h3 id ="wormRound">Round 00000</h3>
@@ -171,6 +166,7 @@
     <script src ="InteractiveBG.js"></script>
     <script src ="ProjectsView.js"></script>
     <script src ="Linker.js"></script>
+    
     
     
     </div>
