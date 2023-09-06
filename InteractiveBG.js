@@ -233,7 +233,14 @@ var GameStart = function Start()
     canvas.height = window.innerHeight;
     cWidth = canvas.width /scaling;
     cHeight = canvas.height /scaling;
+    if (isMobile)
+    {
     ctx.fillStyle = "black";
+    }
+    else
+    {
+        ctx.fillStyle = "purple";
+    }
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     GameLoop();
