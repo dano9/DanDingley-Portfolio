@@ -7,36 +7,39 @@ let cWidth = window.innerWidth / scaling;
 let cHeight = window.innerHeight / scaling;
 
 let touchHandler = function(event) {
-    let x = 0, y = 0;
-  
-    if (event.touches && event.touches[0]) {
-        x = event.touches[0].clientX;
-        y = event.touches[0].clientY;
-    } else if (event.originalEvent && event.originalEvent.changedTouches[0]) {
-        x = event.originalEvent.changedTouches[0].clientX;
-        y = event.originalEvent.changedTouches[0].clientY;
-    } else if (event.clientX && event.clientY) {
-        x = event.clientX;
-        y = event.clientY;
-    }
-    if (event.type == "touchstart")
+    if (immerseMode)
     {
-        //console.log("started touch " + mouseX);
+        let x = 0, y = 0;
+    
+        if (event.touches && event.touches[0]) {
+            x = event.touches[0].clientX;
+            y = event.touches[0].clientY;
+        } else if (event.originalEvent && event.originalEvent.changedTouches[0]) {
+            x = event.originalEvent.changedTouches[0].clientX;
+            y = event.originalEvent.changedTouches[0].clientY;
+        } else if (event.clientX && event.clientY) {
+            x = event.clientX;
+            y = event.clientY;
+        }
+        if (event.type == "touchstart")
+        {
+            //console.log("started touch " + mouseX);
+            startTapX = x;
+            startTapY = y;
+        }
+        mouseX += x - startTapX;
+        mouseY += y - startTapY;
         startTapX = x;
         startTapY = y;
-    }
-    mouseX += x - startTapX;
-    mouseY += y - startTapY;
-    startTapX = x;
-    startTapY = y;
-    //mouseX = x;
-    //mouseY = 500;
+        //mouseX = x;
+        //mouseY = 500;
 
-    if (mouseX > cWidth - 10) {mouseX = cWidth - 10;}
-    else if (mouseX < 10) {mouseX = 10;}
-    if (mouseY > cHeight - 10) {mouseY = cHeight - 10;}
-    else if (mouseY < 10) {mouseY = 10;}
-    //console.log("mouseX: " + mouseX);
+        if (mouseX > cWidth - 10) {mouseX = cWidth - 10;}
+        else if (mouseX < 10) {mouseX = 10;}
+        if (mouseY > cHeight - 10) {mouseY = cHeight - 10;}
+        else if (mouseY < 10) {mouseY = 10;}
+        //console.log("mouseX: " + mouseX);
+    }
 
     mp = PixelSnap(mouseX,mouseY)
     if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
@@ -44,7 +47,7 @@ let touchHandler = function(event) {
         mousePoses.unshift(mp);
         DrawMouseWorm();
     }
-  }
+}
 
 class LightWorm {
     constructor(wli, x, y, xv, yv) {
@@ -199,6 +202,7 @@ const highScoreUI = document.getElementById("highScore");
 const roundUI = document.getElementById("wormRound");
 const canvas = document.getElementById("interactiveBackground");
 const ctx = canvas.getContext("2d");
+const titleUI = document.getElementById("title");
 
 const wormList = [];
 
@@ -225,19 +229,24 @@ var GameLoop = function Loop() {
 }
 let startTapX = 0;
 let startTapY = 0;
+let mouseMoved = false;
 function SetupEvents()
 {
     if (!isMobile)
     {
         // Event listener to track mouse movement
         window.addEventListener("mousemove", (event) => {
-            mouseX = event.clientX / scaling;
-            mouseY = event.clientY / scaling;
-            mp = PixelSnap(mouseX,mouseY)
-            if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+            if (!isCirclingTitle)
             {
-                mousePoses.unshift(mp);
-                DrawMouseWorm();
+                mouseMoved = true;
+                mouseX = event.clientX / scaling;
+                mouseY = event.clientY / scaling;
+                mp = PixelSnap(mouseX,mouseY)
+                if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+                {
+                    mousePoses.unshift(mp);
+                    DrawMouseWorm();
+                }
             }
         });
     }
@@ -250,7 +259,12 @@ function SetupEvents()
 }
 var GameStart = function Start()
 {
-
+    if (isMobile)
+    {
+        immerseBttn.innerText = "Game View";
+    }
+    mouseY = canvas.height / 2;
+    mouseX = canvas.width / 2;
     SetupEvents();
     mWormLength = 12;
     ctx.scale(scaling,scaling);
@@ -271,11 +285,26 @@ var GameStart = function Start()
     GameLoop();
     return true;
 }
+let isCirclingTitle;
 function Update()
 {
+    isCirclingTitle = (!immerseMode && (isMobile || time < 4));
     if (immerseMode)
     {
         window.scrollBy(0,100);
+    }
+    if (isCirclingTitle || (!mouseMoved && !isMobile && !immerseMode))
+    {
+        let titleRect = titleUI.getBoundingClientRect();
+        mouseX = titleRect.left + (-window.scrollX) + (titleRect.width / 4) - 20 + (Math.sin(time * 2) * 200);
+        mouseY = titleRect.bottom + (-window.scrollY) + 0 + (Math.sin((time - 1) * 5) * 20);
+
+        mp = PixelSnap(mouseX,mouseY)
+        if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+        {
+            mousePoses.unshift(mp);
+            DrawMouseWorm();
+        }
     }
 
     let lastRound = -1;
@@ -460,6 +489,10 @@ function DrawMouseWorm()
 
 // Event listener to resize the canvas when the window size changes
 window.addEventListener("resize", () => {
+    GameResize();
+});
+var GameResize = function Resize()
+{
     ctx.scale(scaling,scaling);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -467,7 +500,7 @@ window.addEventListener("resize", () => {
     cHeight = canvas.height /scaling;
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-});
+}
 
 immerseBttn.addEventListener("mouseover", function( event ) {   
     event.target.style.backgroundColor = "rgba(255, 0, 242, 0.8)"; event.target.style.color = "#ffffff";}, false);
@@ -488,13 +521,30 @@ function SwitchImmersion()
     if (immerseMode)
     {
         //lastPortfolioScrolPos = document.body.scrollTop;
-        immerseBttn.innerText = "Game View (P)";
+        
         document.body.style.overflow = "hidden";
         document.getElementById("mainContent").style.display = "none";
+        if (isMobile)
+        {
+            mouseX = cWidth / 2;
+            mouseY = cHeight / 2;
+            immerseBttn.innerText = "Portfolio View";
+        }
+        else
+        {
+            immerseBttn.innerText = "Game View (Locked)";
+        }
     }
     else
     {
-        immerseBttn.innerText = "Portfolio View (P)";
+        if (isMobile)
+        {
+            immerseBttn.innerText = "Game View";
+        }
+        else
+        {
+            immerseBttn.innerText = "Portfolio View (P)";
+        }
         document.body.style.overflow = "auto";
         document.getElementById("mainContent").style.display = "block";
         window.scrollTo(0,0);
