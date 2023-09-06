@@ -19,8 +19,25 @@ let touchHandler = function(event) {
         x = event.clientX;
         y = event.clientY;
     }
-    mouseX = x;
-    mouseY = y;
+    if (event.type == "touchstart")
+    {
+        //console.log("started touch " + mouseX);
+        startTapX = x;
+        startTapY = y;
+    }
+    mouseX += x - startTapX;
+    mouseY += y - startTapY;
+    startTapX = x;
+    startTapY = y;
+    //mouseX = x;
+    //mouseY = 500;
+
+    if (mouseX > cWidth - 10) {mouseX = cWidth - 10;}
+    else if (mouseX < 10) {mouseX = 10;}
+    if (mouseY > cHeight - 10) {mouseY = cHeight - 10;}
+    else if (mouseY < 10) {mouseY = 10;}
+    //console.log("mouseX: " + mouseX);
+
     mp = PixelSnap(mouseX,mouseY)
     if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
     {
@@ -206,7 +223,9 @@ var GameLoop = function Loop() {
     //requestAnimationFrame(GameLoop);
     return true;
 }
-function SetupEvents(isMobile = false)
+let startTapX = 0;
+let startTapY = 0;
+function SetupEvents()
 {
     if (!isMobile)
     {
@@ -226,7 +245,7 @@ function SetupEvents(isMobile = false)
     {
         window.addEventListener('touchstart', touchHandler, false);
         window.addEventListener('touchmove', touchHandler, false);
-        window.addEventListener('touchend', touchHandler, false);
+        //window.addEventListener('touchend', touchHandler, false);
     }
 }
 var GameStart = function Start()
@@ -239,11 +258,11 @@ var GameStart = function Start()
     canvas.height = window.innerHeight;
     cWidth = canvas.width /scaling;
     cHeight = canvas.height /scaling;
-    if (isMobile)
+    //if (isMobile)
     {
-        ctx.fillStyle = "purple";
+    //ctx.fillStyle = "purple";
     }
-    else
+    //else
     {
         ctx.fillStyle = "black";
     }
