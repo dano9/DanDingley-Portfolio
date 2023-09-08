@@ -28,7 +28,7 @@ class Project {
         {
             this.thumbnailCount = 3;
             this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
-            this.shortDesc = "The second mobile game I made and my first attempt at network multipayer."
+            this.shortDesc = "My second mobile game and my first attempt at network multipayer."
             this.date = "2019";
         }
         else if (title == "Baby Snatcher")
