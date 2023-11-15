@@ -619,7 +619,7 @@ var PVUpdate = function Update()
     ManageInDepth();
     if (isMobile && !inspectingProject)
     {
-        if (tapXDisp != 0) {scrollVeloc = tapXDisp * -2;}
+        if (tapXDisp != 0) {scrollVeloc = tapXDisp * -1;}
         else if (scrollVeloc > 1) {scrollVeloc -= 0.8;}
         else if (scrollVeloc < -1) {scrollVeloc += 0.8;}
         else {scrollVeloc = 0;}
