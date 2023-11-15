@@ -7,21 +7,21 @@
     <style>
         body {
             
-            font-family: Arial, sans-serif;
+            font-family: "Lucida Console", "Courier New", monospace;
             margin: 0;
             padding: 0;
+            width: 100%;
+            max-width: 100%;
             position: relative;
             background-color: #000000;
         }
 
         .mainContent {
             
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 50px;
-            padding-top: 0px;
+            min-width: 300px;
+            max-width: 60%;
             position: absolute;
-            align-self: center;
+            padding: 3%;
             
             background-color: rgba(1,1,1,0.5);
             box-shadow: 0 0 10px #ff24ed;
@@ -45,12 +45,12 @@
             padding-top: 20px;
             color: #ffffff;
             text-align: justify;
-            font-size: 36px;
+            font-size: 30px;
         }
         h3 {
             padding-top: 0px;
-            padding-right: 10%;
-            padding-left: 15%;
+            padding-right: 0%;
+            padding-left: 0%;
             color: #ffffff;
             font-size: 120%;
         }
@@ -85,7 +85,7 @@
 
             padding: 10px 20px; /* Adjust padding for button size */
             border: none;
-            background-color: rgba(255, 0, 242, 0.1); /* Button background color */
+            background-color: #ff00f21a; /* Button background color */
             color: #ffffff77; /* Button text color */
             font-size: 18px; /* Button font size */
             border-radius: 0; /* Square edges */
@@ -94,15 +94,13 @@
         }
         .ProjectsView
         {
-            max-width: 1000px;
-            max-height: 500px;
-            height: 225px;
-            padding: 0px;
-            padding-bottom: 0px;
+            max-width: 200%;
+            width: 110%;
+            margin-left: -5%;
             display: flex;
             align-items: flex-start;
-            margin-right: -50px; margin-left: -50px;
             overflow: hidden;
+            box-shadow: 0 0 10px #ff24ed;
         }
         a:link {
         color: #ec60ff;
@@ -139,7 +137,7 @@
         ul {
             display: inline-block;
             vertical-align: top;
-            color: #ec60ff;
+            color: hsl(293, 100%, 69%);
             font-size: 14;
             font-weight: bold;
             text-align: left;
@@ -155,6 +153,10 @@
             font-style: normal;
             color: #ec60ff;
         }
+        code
+        {
+            color: white;
+        }
 
     </style>
 </head>
@@ -169,7 +171,7 @@
         
 
         <h2>Gameplay Programmer</h2>
-        <p><em>Why do I want to be one?</em><br><br>My favourite part of game development is the code, it's the magic words that turn lifeless assets into something tangible the player can interact with. There is little more satisfying then solving a problem by developing unique solutions of your own and gameplay programming has that in spades. <br><br> Qualifications And Skills:</p>
+        <p>Why do I want to be one?<br><br>My favourite part of game development is the code, it's the magic words that turn lifeless assets into something tangible the player can interact with. There is little more satisfying then solving a problem by developing unique solutions of your own and gameplay programming has that in spades. <br><br> Qualifications And Skills:</p>
         <ul style="padding-right: 10%;" style="padding-left: 0%;">
             A Levels:
             <li>Computer Science: A</li>
@@ -201,7 +203,6 @@
         <h2>Contact Me</h2>
         <p>Thanks for reading my portfolio if you have any questions or want to get in touch email me at  <br><br> danieldingley9@gmail.com</p>
         
-        
     </div>
     
     <canvas id="interactiveBackground"></canvas>
@@ -216,8 +217,7 @@
     <script src ="ProjectsView.js"></script>
     <script src ="Linker.js"></script>
     
-    
-    
     </div>
+    
 </body>
 </html>
