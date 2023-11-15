@@ -27,8 +27,8 @@ let touchHandler = function(event) {
             startTapX = x;
             startTapY = y;
         }
-        mouseX += (x - startTapX) * 1.6;
-        mouseY += (y - startTapY) * 1.6;
+        mouseX += x - startTapX;
+        mouseY += y - startTapY;
         startTapX = x;
         startTapY = y;
         //mouseX = x;
@@ -259,6 +259,7 @@ function SetupEvents()
 }
 var GameStart = function Start()
 {
+    window.scrollTo(0,0);
     if (isMobile)
     {
         immerseBttn.innerText = "Game View";
@@ -488,14 +489,15 @@ function DrawMouseWorm()
 }
 
 // Event listener to resize the canvas when the window size changes
-window.addEventListener("resize", () => {
-    GameResize();
-});
+//window.addEventListener("resize", () => {
+  //  GameResize();
+//});
 var GameResize = function Resize()
 {
     ctx.scale(scaling,scaling);
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    //console.log(canvas.width);
     cWidth = canvas.width /scaling;
     cHeight = canvas.height /scaling;
     ctx.fillStyle = "black";
