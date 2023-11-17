@@ -65,11 +65,12 @@ class Project {
             this.link = "";
             this.shortDesc = "A wave based arena fighter VR game. I learnt a lot about active ragdolls and 3D animation making this as well as the struggles of balancing realistic physics with fun responsive VR controls and performance since I developed it with the Oculus Quest in mind.";
             this.date = "2021";
-            this.depthRows.push(new DepthRow());
+            /*this.depthRows.push(new DepthRow());
             this.depthRows[0].para = "BLA BVLAa asdasda fihfuaydiu auidshiuadh wuidahiudaps uiashdjkwhbdkj hsduhahdushd ujsahdjhasukdha jhdfajhd asjd ajsdhk as dhajskdh";
             this.depthRows[0].subHeading = "Subasdas";
             this.depthRows[0].imgs = ["your-image.png"];
             this.depthRows[0].codeSnip = "this is code asdasdhyoiwdh asidhaoisd haisdh aoidhoaisdh apsdaiodsh aowi yw guir fhsj hgasjgaydgy wgyeegyfg sydft yfg as dyuasg daisdu gaisudpo adisadgauysdyt";
+            */
         }
         else if (title == "SuperGary LowFPS")
         {
@@ -509,7 +510,7 @@ function ManageArrows()
                 scrollArrows[s].src = "thinArrow.png";
                 scrollArrows[s].style.position = "absolute";
                 scrollArrows[s].style.zIndex = "10";
-                scrollArrows[s].style.height = (!portraitProjV ? 150 : 20) + "px";
+                scrollArrows[s].style.height = (!portraitProjV ? 60 : 20) + "px";
                 scrollArrows[s].style.width = 25 + "px";//(scrollArrows[s].height * 0.5) + "px";
                 scrollArrows[s].style.mixBlendMode ="normal";
                 scrollArrows[s].style.backgroundColor = "#ec60ff00";
@@ -580,14 +581,13 @@ function ManageArrows()
             }
             else
             {
-                scrollArrows[s].style.marginTop = 20 + "px";
-                scrollArrows[s].style.height = (160) + "px";
+                scrollArrows[s].style.marginTop = 15 + "px";
                 if (scrollVeloc * dir > 0)
                 {
                     let parRect = container.getBoundingClientRect();
                     arrow.style.display = "block";
                     if (s == 1)
-                    {scrollArrows[s].style.marginLeft = parRect.width - 25 + "px";}
+                    {scrollArrows[s].style.marginLeft = (parRect.width - 60) + "px";}
                     else {scrollArrows[s].style.marginLeft = "3px";}
                 }
                 else
@@ -596,8 +596,8 @@ function ManageArrows()
                 }
                 
             }
-            scrollArrows[s].style.height = imgRect.height + "px";
-            scrollArrows[s].style.width = (imgRect.height * 0.4) + "px";
+            scrollArrows[s].style.height = (imgRect.height * (inspectingProject ? 1 : 0.75)) + "px";
+            scrollArrows[s].style.width = (imgRect.height * 0.4 * (inspectingProject ? 1 : 0.75)) + "px";
         });
     }
     else
@@ -628,8 +628,10 @@ var PVUpdate = function Update()
     }
     if (time - lastInterTime < 7)
     {
-        container.style.height = pd + "px";
-        container.style.maxHeight = pd + "px";
+        let csh = pd;
+        //if (inspectingProject) {csh += 100;}
+        container.style.height = csh + "px";
+        container.style.maxHeight = csh + "px";
 
         let tarSpacerLWidth = 1;
         let tarSpacerRWidth = 1;
@@ -715,11 +717,12 @@ var PVUpdate = function Update()
             }
             else
             {
+                let tarPd = firstRect.height;
                 //uiSpacer.style.width = '10px';
                 //container.style.overflow = "hidden";
                 //container.style.alignItems = "center";
-                if (pd > 260) {pd -= 5;}
-                if (pd < 260) {pd += 5;}
+                if (pd > tarPd) {pd -= 5;}
+                if (pd < tarPd) {pd += 5;}
 
                 if (!isMobile)
                 {
