@@ -629,7 +629,7 @@ var PVUpdate = function Update()
     if (time - lastInterTime < 7)
     {
         let csh = pd;
-        //if (inspectingProject) {csh += 100;}
+        if (inspectingProject && portraitProjV) {csh += 100;}
         container.style.height = csh + "px";
         container.style.maxHeight = csh + "px";
 
