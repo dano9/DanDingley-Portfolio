@@ -612,24 +612,47 @@ function ManageArrows()
         }
     }
 }
+let lastPSwitch = 0;
 var PVUpdate = function Update()
 {
     ManageIFrame();
     ManageArrows();
     ManageInDepth();
-    if (isMobile && !inspectingProject)
+    if (isMobile)
     {
-        if (tapXDisp != 0) {scrollVeloc = tapXDisp * -1;}
-        else if (scrollVeloc > 1) {scrollVeloc -= 0.8;}
-        else if (scrollVeloc < -1) {scrollVeloc += 0.8;}
-        else {scrollVeloc = 0;}
-        container.scrollBy(scrollVeloc,0);
-        
+        if (!inspectingProject)
+        {
+            if (tapXDisp != 0) {scrollVeloc = tapXDisp * -1;}
+            else if (scrollVeloc > 1) {scrollVeloc -= 0.8;}
+            else if (scrollVeloc < -1) {scrollVeloc += 0.8;}
+            else {scrollVeloc = 0;}
+            container.scrollBy(scrollVeloc,0);
+        }
+        else
+        {
+            if (time - lastPSwitch > 1)
+            {
+                if (tapXDisp > 30 && selectedProject.pIndex != 0) {
+                    DespectProject();
+                    InspectProject(selectedProject.pIndex - 1);
+                    //scrollVeloc = -10;
+                    lastPSwitch = time;
+                    tapXDisp = 0;
+                }
+                if (tapXDisp < -30 && selectedProject.pIndex != projects.length - 1) {
+                    DespectProject();
+                    InspectProject(selectedProject.pIndex + 1);
+                    //scrollVeloc = 10;
+                    lastPSwitch = time;
+                    tapXDisp = 0;
+                }
+            }
+        }
     }
     if (time - lastInterTime < 7)
     {
         let csh = pd;
-        if (inspectingProject && portraitProjV) {csh += 500;}
+        if (inspectingProject && portraitProjV) {csh += 0;}
         container.style.height = csh + "px";
         container.style.maxHeight = csh + "px";
 
