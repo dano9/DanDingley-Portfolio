@@ -26,8 +26,14 @@ window.addEventListener("resize", () => {
 });
 function Resize()
 {
+    portraitProjV = window.innerWidth < 700;
+    if (portraitProjV)
+    {
+        mainContent.style.width = "90%";
+    }
+    else {mainContent.style.width = "70%";}
     let mCRect = mainContent.getBoundingClientRect();
-    portraitProjV = mCRect.width < 500;
+    
     GameResize();
     PVResize();
    // mainContent.style.minWidth = "10px";
@@ -35,11 +41,16 @@ function Resize()
     {
         //mainContent.style.width = Math.min(window.innerWidth * 0.48, 1000) + "px";
     }
-    
-    //if (!isMobile) 
-    {mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.5) + "px";}
-    //else
-    //{mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.25) + "px";}
+    let miiImg = document.getElementById('mii');
+    miiRect = miiImg.getBoundingClientRect();
+    if (!portraitProjV) 
+    {
+        miiImg.style.marginRight = "5px";
+        mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.5) + "px";}
+    else
+    {
+        miiImg.style.marginRight = (((window.innerWidth - miiRect.width) * 0.5) - 30) + "px";
+        mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.25) + "px";}
     //else {mainContent.style.padding = "15px";}
     //console.log(mainContent.style.maxWidth);
     //mainContent.style.padding = "50px";
