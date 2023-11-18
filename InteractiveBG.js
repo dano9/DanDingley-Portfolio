@@ -27,8 +27,8 @@ let touchHandler = function(event) {
             startTapX = x;
             startTapY = y;
         }
-        mouseX += x - startTapX;
-        mouseY += y - startTapY;
+        mouseX += (x - startTapX) * 1.5;
+        mouseY += (y - startTapY) * 1.5;
         startTapX = x;
         startTapY = y;
         //mouseX = x;

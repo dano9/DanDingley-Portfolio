@@ -630,16 +630,16 @@ var PVUpdate = function Update()
         }
         else
         {
-            if (time - lastPSwitch > 1)
+            if (time - lastPSwitch > 1 && time - lastTouchT < 0.5)
             {
-                if (tapXDisp > 30 && selectedProject.pIndex != 0) {
+                if (tapXDisp > 20 && selectedProject.pIndex != 0) {
                     DespectProject();
                     InspectProject(selectedProject.pIndex - 1);
                     //scrollVeloc = -10;
                     lastPSwitch = time;
                     tapXDisp = 0;
                 }
-                if (tapXDisp < -30 && selectedProject.pIndex != projects.length - 1) {
+                if (tapXDisp < -20 && selectedProject.pIndex != projects.length - 1) {
                     DespectProject();
                     InspectProject(selectedProject.pIndex + 1);
                     //scrollVeloc = 10;
@@ -652,7 +652,7 @@ var PVUpdate = function Update()
     if (time - lastInterTime < 7)
     {
         let csh = pd;
-        if (inspectingProject && portraitProjV) {csh += 0;}
+        if (inspectingProject && portraitProjV) {csh += 100;}
         container.style.height = csh + "px";
         container.style.maxHeight = csh + "px";
 
@@ -672,8 +672,8 @@ var PVUpdate = function Update()
             
             let tarPd = 440;
             if (inDepth && selectedProject.depthRows.length > 0) {tarPd += 70 + (selectedProject.depthRows.length * 500);}
-            if (pd < tarPd - 10){pd += 10;}
-            else if (pd > tarPd + 10){pd -= 10;}
+            if (pd < tarPd - 15){pd += 15;}
+            else if (pd > tarPd + 15){pd -= 15;}
             else {pd = tarPd;}
             if (selectedProject != null)
             {
@@ -744,8 +744,8 @@ var PVUpdate = function Update()
                 //uiSpacer.style.width = '10px';
                 //container.style.overflow = "hidden";
                 //container.style.alignItems = "center";
-                if (pd > tarPd) {pd -= 5;}
-                if (pd < tarPd) {pd += 5;}
+                if (pd > tarPd) {pd -= 15;}
+                if (pd < tarPd) {pd += 15;}
 
                 if (!isMobile)
                 {
@@ -1033,6 +1033,7 @@ let tapXDisp = 0;
 let tapYDisp = 0;
 let sTapX = 0;
 let sTapY = 0;
+let lastTouchT = 0;
 let projTouchHandler = function(event) {
     let x = 0, y = 0;
 
@@ -1048,6 +1049,7 @@ let projTouchHandler = function(event) {
     }
     if (event.type == "touchstart")
     {
+        lastTouchT = time;
         sTapX = x;
         sTapY = y;
     }
