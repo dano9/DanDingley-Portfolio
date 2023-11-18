@@ -29,7 +29,7 @@ function Resize()
     portraitProjV = window.innerWidth < 700;
     if (portraitProjV)
     {
-        mainContent.style.width = "90%";
+        mainContent.style.width = "92%";
     }
     else {mainContent.style.width = "70%";}
     let mCRect = mainContent.getBoundingClientRect();
@@ -50,7 +50,8 @@ function Resize()
     else
     {
         miiImg.style.marginRight = (((window.innerWidth - miiRect.width) * 0.5) - 30) + "px";
-        mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.25) + "px";}
+        mainContent.style.marginLeft = ((window.innerWidth - mCRect.width) * 0.5) + "px";
+    }
     //else {mainContent.style.padding = "15px";}
     //console.log(mainContent.style.maxWidth);
     //mainContent.style.padding = "50px";
