@@ -52,22 +52,27 @@ function Resize()
     let gHRect = gameHud.getBoundingClientRect();
     gameHud.style.marginTop = (mCRect.height + (window.innerHeight * 1.8)) + "px";
     //if (!isMobile) 
-    //{gameHud.style.marginLeft = ((window.innerWidth - gHRect.width) * 0.5) + "px";}
+    {}
 
-    /*let pad = Math.round(0.04 * gHRect.width );
-    //if (!isMobile) 
-    {pad *= 0.8;}
-
-    document.getElementById("wormLength").style.fontSize = pad + "px";
-    document.getElementById("wormLength").style.paddingLeft = 1 + "px";
-    if (isMobile)
+    let pad = Math.round(0.13 * gHRect.width);
+    if (!portraitProjV) 
     {
-        //document.getElementById("wormLength").style.paddingLeft = 10 + "px";
+        gameHud.style.display = "flex";
+        gameHud.style.height = 80 + "px";
+        gameHud.style.marginLeft = ((window.innerWidth - gHRect.width) * 0.5) + "px";
+        document.getElementById("wormLength").style.paddingLeft = pad + "px";
+        document.getElementById("highScore").style.paddingLeft = pad + "px";
+        document.getElementById("wormRound").style.paddingLeft = pad + "px";
     }
-
-    document.getElementById("highScore").style.fontSize = pad + "px";
-    document.getElementById("highScore").style.paddingLeft = 0 + "px";
-
-    document.getElementById("wormRound").style.fontSize = pad + "px";
-    document.getElementById("wormRound").style.paddingLeft = 0 + "px";*/
+    else
+    {
+        gameHud.style.display = "inline";
+        gameHud.style.width = 100 + "%";
+        gameHud.style.height = 150 + "px";
+        gHRect = gameHud.getBoundingClientRect();
+        gameHud.style.marginLeft = ((window.innerWidth - gHRect.width) * 0.5) + "px";
+        document.getElementById("wormLength").style.paddingLeft = 20 + "px";
+        document.getElementById("highScore").style.paddingLeft = 20 + "px";
+        document.getElementById("wormRound").style.paddingLeft = 20 + "px";
+    }
 }
