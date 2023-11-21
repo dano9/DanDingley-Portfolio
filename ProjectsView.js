@@ -74,11 +74,20 @@ class Project {
         }
         else if (title == "SuperGary LowFPS")
         {
+            
             this.thumbnailCount = 1;
-            this.embddGame = "https://itch.io/embed-upload/8530496?";
+            this.embddGame = "https://itch.io/embed-upload/9141999?";
             this.link = "<a href='https://itch.io/jam/acm-summer-jam-2023/rate/2224849' target='_blank'>Visit Page</a>";;
             this.shortDesc = "I made this game for a game jam with the theme 'Its not a bug it's a feature'.";
             this.date = "2023";
+        } 
+        else if (title == "Multiplayer FPS")
+        {
+            this.thumbnailCount = 1;
+            this.embddVideo = "https://www.youtube.com/embed/XumNbK_RL0c?si=U_7L0FZ7gpY34Bbj";
+            this.link = "";
+            this.shortDesc = "Prototype for a network multiplayer first person shooter. Taught me about inverse kinematics and animation as well as velocity based player movement. I also learnt how multiplayer games synchronise data and how that aspect needs to be planned and accomodated for in nearly every aspect of the game.";
+            this.date = "2019";
         }
     }
 }
@@ -94,7 +103,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["Down Stream", "!Blood Skating","Untitled VR Game", "Apothalypse", "Baby Snatcher", "!Horror Laboratory", "!The Punk Police", "Battle Babies", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["!Blood Skating","Untitled VR Game", "Apothalypse", "Battle Babies", "Down Stream", "Multiplayer FPS", "!Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
