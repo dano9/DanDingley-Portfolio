@@ -86,8 +86,16 @@ class Project {
             this.thumbnailCount = 1;
             this.embddVideo = "https://www.youtube.com/embed/XumNbK_RL0c?si=U_7L0FZ7gpY34Bbj";
             this.link = "";
-            this.shortDesc = "Prototype for a network multiplayer first person shooter. Taught me about inverse kinematics and animation as well as velocity based player movement. I also learnt how multiplayer games synchronise data and how that aspect needs to be planned and accomodated for in nearly every aspect of the game.";
+            this.shortDesc = "Prototype for a network multiplayer first person shooter. Taught me about inverse kinematics and animation as well as velocity based player movement. I also learnt how multiplayer games synchronise scene data, make predictions for slow data and how that aspect needs to be planned and accomodated for in nearly every aspect of the game.";
             this.date = "2019";
+        }
+        else if (title == "Horror Laboratory")
+        {
+            this.thumbnailCount = 1;
+            this.embddVideo = "https://www.youtube.com/embed/WL2zOTz3Aeo?si=X8KQMExxY1IF33-T";
+            this.link = "";
+            this.shortDesc = "Experimental horor game where each corridor/room is segmented into a grid of tiles generated from a text file so the grid can be used for player and enemy pathfinding to eliminate the need for physics simulation. I now realise that what little is gained in performance from this approach is not worth the many drawbacks.";
+            this.date = "2022";
         }
     }
 }
@@ -103,7 +111,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["!Blood Skating","Untitled VR Game", "Apothalypse", "Battle Babies", "Down Stream", "Multiplayer FPS", "!Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["!Blood Skating","Untitled VR Game", "Apothalypse", "Battle Babies", "Down Stream", "Multiplayer FPS", "Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
