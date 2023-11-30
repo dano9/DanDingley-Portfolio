@@ -1,5 +1,12 @@
 const container = document.getElementById("projectsView");
 const examplePara = document.getElementById("examplePara");
+const projFilterBttnn = document.getElementById("projFilterButton");
+
+projFilterBttnn.addEventListener("mouseover", function( event ) {   
+    event.target.style.backgroundColor = "rgba(255, 0, 242, 0.8)";}, false);
+projFilterBttnn.addEventListener("mouseout", function( event ) {   
+    event.target.style.backgroundColor = "rgba(255, 0, 242, 0.14)";}, false);
+projFilterBttnn.innerText = "Featured Projects";
 
 class DepthRow
 {
@@ -97,6 +104,7 @@ class Project {
             this.shortDesc = "Experimental horor game where each corridor/room is segmented into a grid of tiles generated from a text file so the grid can be used for player and enemy pathfinding to eliminate the need for physics simulation. I now realise that what little is gained in performance from this approach is not worth the many drawbacks.";
             this.date = "2022";
         }
+        Resize();
     }
 }
 
@@ -111,7 +119,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["!Blood Skating","Untitled VR Game", "Apothalypse", "Battle Babies", "Down Stream", "Multiplayer FPS", "Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["!Blood Skating","*Untitled VR Game", "*Apothalypse", "*Battle Babies", "Down Stream", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
@@ -123,9 +131,21 @@ function SetUpProjects()
     projects.push(new Project(6, "Apothalypse"));
     projects.push(new Project(7, "Apothalypse"));
     projects.push(new Project(8, "Apothalypse"));*/
+    if (uiSpacerLeft != null) {uiSpacerLeft.parentNode.removeChild(uiSpacerLeft);}
+    if (uiSpacerRight != null) {uiSpacerRight.parentNode.removeChild(uiSpacerRight);}
+    DespectProject();
+    projects.forEach((project, index) => {
+        project.element.parentNode.removeChild(project.element);
+    });
+    projects = [];
+
     let projCounter = 0;
     projectNames.forEach((pName, index) => {
-        if (pName[0] != "!") {projects.push(new Project(projCounter, pName)); projCounter += 1;}
+        if (pName[0] != "!" && (pName[0] == "*" || filterIndex == 1)) 
+        {
+            if (pName[0] == "*") {pName = pName.substring(1, pName.length);} 
+            projects.push(new Project(projCounter, pName)); projCounter += 1;
+        }
     });
 
     /*var fs = require('fs');
@@ -145,6 +165,7 @@ function SetUpProjects()
         project.element.style.height = 'auto';
         project.element.style.width = '25%';
         project.element.style.padding = '2px';
+        if (index == 0) {project.element.style.paddingLeft = '0px';}
         project.element.addEventListener("mouseenter", function( event ) {   
             project.isHovering = true; Interact();}, false);
         project.element.addEventListener("mouseleave", function( event ) {   
@@ -183,6 +204,7 @@ let sideInspPad = 0;
 let mouseXPos = 0;
 let isOnContainer;
 let inDepth = true;
+let filterIndex = 0;
 var PVStart = function Start()
 {
     lastInterTime = 0;
@@ -1038,6 +1060,20 @@ document.addEventListener("keydown", (event) => {
         
 });
 
+function SwitchProjFilter()
+{
+    filterIndex = (filterIndex + 1) % 2;
+    if (filterIndex == 0)
+    {
+        projFilterBttnn.innerText = "Featured Projects";
+    }
+    else if (filterIndex == 1)
+    {
+        projFilterBttnn.innerText = "All Projects";
+    }
+    SetUpProjects();
+}
+
 function PVResize()
 {
     if (selectedProject != null)
@@ -1076,3 +1112,4 @@ let projTouchHandler = function(event) {
     sTapY = y;
     if (tapXDisp != 0) {console.log("tapXDisp: " + tapXDisp);}
 }
+
