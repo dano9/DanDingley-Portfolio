@@ -82,7 +82,7 @@ class Project {
         else if (title == "Slice VR Prototype")
         {
             this.thumbnailCount = 1;
-            this.embddVideo = "https://www.youtube.com/embed/20DP6KkdG6o?si=xs1B96X-U1ASjtwa";
+            this.embddVideo = "https://www.youtube.com/embed/0l5-sz8B3zA?si=_vU7jb5PzZSoa6rW";
             this.link = "";
             this.shortDesc = "A very early prototype for a vr game. Building on what I learned from my first VR prototype and inspired by games like BoneWorks I wanted to do a more physics heavy experience. In doing so I found it very challenging to deliver a smooth user friendly experience as the physics simulations would all too often conflict with what couldn't be simulated and so lot of solutions to try to compensate for these times had to be implemented.";
             this.date = "2023";
