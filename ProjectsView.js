@@ -39,7 +39,7 @@ class Project {
         {
             //this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
             this.link = "<a href='https://giac.itch.io/downstream' target='_blank'>Play it here</a>";
-            this.shortDesc = "A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading.";
+            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading.  <a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
             this.date = "2023";
         }
         if (title == "Apothalypse")
