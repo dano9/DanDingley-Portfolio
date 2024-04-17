@@ -39,7 +39,7 @@ class Project {
         {
             //this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
             this.link = "<a href='https://giac.itch.io/downstream' target='_blank'>Play it here</a>";
-            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading.  <a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
+            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading.  asdas<a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
             this.date = "2023";
         }
         if (title == "Apothalypse")
@@ -55,6 +55,13 @@ class Project {
             this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
             this.shortDesc = "My second mobile game and my first attempt at network multipayer."
             this.date = "2019";
+        }
+        else if (title == "The Yellow Mellow Fellow")
+        {
+            this.embddVideo = "https://www.youtube.com/embed/ZsghkTp9hxE?si=-ILIo4XBpJfRKAhz?autoplay=1";
+            this.thumbnailCount = 1;
+            this.shortDesc = "University coursework with the specifications to build upon a barebones pac-man style game provided by Newcastle University by implementing more complex features, and a striking visual art style. One of these features was replacing unity's built in nav mesh with a custom A* pathfinding algorithm to have more faithful and challenging ghost behaviour. I created all the 3d models using blender and modified the textures in photoshop."
+            this.date = "2024";
         }
         else if (title == "Baby Snatcher")
         {
@@ -127,7 +134,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["Down Stream","*Untitled VR Game", "*Apothalypse", "*Battle Babies", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
