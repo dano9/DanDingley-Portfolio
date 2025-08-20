@@ -1,6 +1,7 @@
 const container = document.getElementById("projectsView");
 const examplePara = document.getElementById("examplePara");
 const projFilterBttnn = document.getElementById("projFilterButton");
+const projSubheadLabel = document.getElementById("projSubheadLabel");
 
 projFilterBttnn.addEventListener("mouseover", function( event ) {   
     event.target.style.backgroundColor = "rgba(255, 0, 242, 0.8)";}, false);
@@ -1081,10 +1082,12 @@ function SwitchProjFilter()
     if (filterIndex == 0)
     {
         projFilterBttnn.innerText = "Featured Projects";
+        projSubheadLabel.innerText = "A collection of projects I've worked on (click 'Featured Projects' to toggle)";
     }
     else if (filterIndex == 1)
     {
         projFilterBttnn.innerText = "All Projects";
+        projSubheadLabel.innerText = "A collection of projects I've worked on (click 'All Projects' to toggle)";
     }
     SetUpProjects();
 }
