@@ -40,7 +40,7 @@ class Project {
         {
             //this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
             this.link = "<a href='https://giac.itch.io/downstream' target='_blank'>Play it here</a>";
-            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading. <a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
+            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the river flow effect and the post process psx-stlye pixelation and color grading.  asdas<a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
             this.date = "2023";
         }
         if (title == "Apothalypse")
@@ -54,7 +54,7 @@ class Project {
         {
             this.thumbnailCount = 3;
             this.embddVideo = "https://www.youtube.com/embed/GwVc7RWEfZU?si=3174lULBWo4sNETg";
-            this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
+            //this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
             this.shortDesc = "My second mobile game and my first attempt at network multipayer."
             this.date = "2019";
         }
@@ -68,10 +68,10 @@ class Project {
         else if (title == "Baby Snatcher")
         {
             this.thumbnailCount = 6;
-            this.embddVideo = "https://www.youtube.com/embed/n-h5S2JMqGE?si=-JrVTVLpj5h2mSO6";
+            this.embddVideo = "https://www.youtube.com/embed/XRQCRqLSyNE?si=1oGz0sY3rbytSX_s";
             this.embddGame = "https://serve.gamejolt.net/cecc1ec53ffe6135afb0366309f6fe5be8d27a16e30981a1d59c07005415f4f0,1693865747,7/data/games/8/51/500051/files/60ed62573da0a/index.html?"
             this.link = "<a href='https://gamejolt.com/games/BabySnatcher/500051' target='_blank'>Visit Page</a>";
-            this.shortDesc = "A short stealth game me and an artist made for a game jam. The newest challenge for me here was enemy behaviour and creating a system for their pathfinding.";
+            this.shortDesc = "A short stealth game me and an artist made for a game jam, my focuses were on enemy behaviour and creating a system for their pathfinding.";
             this.date = "2020";
         }
         else if (title == "Untitled VR Game")
@@ -144,7 +144,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
