@@ -40,7 +40,7 @@ class Project {
         {
             //this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
             this.link = "<a href='https://giac.itch.io/downstream' target='_blank'>Play it here</a>";
-            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading.  asdas<a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
+            this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the current flow effect and the post process psx-stlye pixelation and color grading. <a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
             this.date = "2023";
         }
         if (title == "Apothalypse")
@@ -53,6 +53,7 @@ class Project {
         else if (title == "Battle Babies")
         {
             this.thumbnailCount = 3;
+            this.embddVideo = "https://www.youtube.com/embed/GwVc7RWEfZU?si=3174lULBWo4sNETg";
             this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
             this.shortDesc = "My second mobile game and my first attempt at network multipayer."
             this.date = "2019";
@@ -120,6 +121,14 @@ class Project {
             this.shortDesc = "Experimental horor game where each corridor/room is segmented into a grid of tiles generated from a text file so the grid can be used for player and enemy pathfinding to eliminate the need for physics simulation. I now realise that what little is gained in performance from this approach is not worth the many drawbacks.";
             this.date = "2022";
         }
+        else if (title == "Home Wrecker")
+        {
+            this.thumbnailCount = 1;
+            this.embddVideo = "https://www.youtube.com/embed/WL2zOTz3Aeo?si=X8KQMExxY1IF33-T";
+            this.link = "";
+            this.shortDesc = "A game design project for university in which we had to create a design document and early prototype. I also experimented with texture manipulation to enable destructive terrain and island detection algorithms to get pixel perfect collision.  <a href='https://docs.google.com/document/d/1BkHHxTAXP4tpdTUMZ5kxRpfiY3omXYdfLGzv5fSaqOA/edit?usp=sharing' target='_blank'>View the Design Doc here.</a>";
+            this.date = "2025";
+        }
         Resize();
     }
 }
@@ -135,7 +144,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
