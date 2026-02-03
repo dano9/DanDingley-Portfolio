@@ -534,7 +534,7 @@ function SwitchImmersion()
         }
         else
         {
-            immerseBttn.innerText = "Game View (Locked)";
+            immerseBttn.innerText = "Game View (P - toggle)";
         }
     }
     else
