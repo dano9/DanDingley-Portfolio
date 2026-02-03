@@ -43,6 +43,14 @@ class Project {
             this.shortDesc = " A short psx style horror game I made with a friend. Simulating the waves helped to build my knowledge of mesh manipulation as well as shaders for the river flow effect and the post process psx-stlye pixelation and color grading.  asdas<a href='https://github.com/GIACgames/TheTyneHorror' target='_blank'>View the Source Code</a>";
             this.date = "2023";
         }
+        if (title == "Space Blocks")
+        {
+            //this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
+            //this.link = "<a href='https://giac.itch.io/downstream' target='_blank'>Play it here</a>";
+            this.shortDesc = "Voxel space sandbox game heavily inspired by minecraft with an emphasis on physics. Currently in development.";
+            this.date = "2024-2026";
+            this.thumbnailCount=3;
+        }
         if (title == "Apothalypse")
         {
             this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
@@ -144,7 +152,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["*Space Blocks", "*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
