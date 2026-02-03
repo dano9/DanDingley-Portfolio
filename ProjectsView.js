@@ -109,7 +109,7 @@ class Project {
             
             this.thumbnailCount = 1;
             this.embddGame = "https://itch.io/embed-upload/9141999?";
-            this.link = "<a href='https://itch.io/jam/acm-summer-jam-2023/rate/2224849' target='_blank'>Visit Page</a>";;
+            this.link = "<a href='https://itch.io/jam/acm-summer-jam-2023/rate/2224849' target='_blank'>Visit Page</a>";
             this.shortDesc = "I made this game for a game jam with the theme 'Its not a bug it's a feature'.";
             this.date = "2023";
         } 
@@ -137,6 +137,14 @@ class Project {
             this.shortDesc = "A game design project for university in which we had to create a design document and early prototype. I also experimented with texture manipulation to enable destructive terrain and island detection algorithms to get pixel perfect collision.  <a href='https://docs.google.com/document/d/1BkHHxTAXP4tpdTUMZ5kxRpfiY3omXYdfLGzv5fSaqOA/edit?usp=sharing' target='_blank'>View the Design Doc here.</a>";
             this.date = "2025";
         }
+        else if (title == "The Punk Police")
+        {
+            this.thumbnailCount = 2;
+            this.embddGame = "https://serve.gamejolt.net/5450d4c1ba084ba25fcd6166a0c25eba66c49e94f20021586869179765039689,1770202334,7/data/games/7/159/473159/files/5ebec4baaeb4b/index.html"
+            this.date= "2020";
+            this.shortDesc = "Simple sideways shooter made in a week for a gamejam. ";
+            this.link = "<a href='https://gamejolt.com/games/ThePunkPolice/473159' target='_blank'>Visit Page</a>";
+        }
         Resize();
     }
 }
@@ -152,7 +160,7 @@ let scrollArrows = [null, null];
 let deInspectButton = null;
 let inDepthButton = null;
 let depthBox = null;
-const projectNames = ["*Space Blocks", "*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "!The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
+const projectNames = ["*Space Blocks", "*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard"];
 function SetUpProjects()
 {
     /*projects.push(new Project(0, "Apothalypse"));
