@@ -53,7 +53,7 @@ class Project {
         else if (title == "Battle Babies")
         {
             this.thumbnailCount = 3;
-            this.embddVideo = "https://www.youtube.com/embed/GwVc7RWEfZU?si=3174lULBWo4sNETg";
+            this.embddVideo = "https://www.youtube.com/embed/nCHip9cDun8?si=m1XXmrsR9dB1xVg7";
             //this.link = "<a href='https://play.google.com/store/apps/details?id=com.GIAC.BattleBabies&hl=en_AU&gl=UK' target='_blank'>Play it on android</a>";
             this.shortDesc = "My second mobile game and my first attempt at network multipayer."
             this.date = "2019";
@@ -124,7 +124,7 @@ class Project {
         else if (title == "Home Wrecker")
         {
             this.thumbnailCount = 1;
-            this.embddVideo = "https://www.youtube.com/embed/WL2zOTz3Aeo?si=X8KQMExxY1IF33-T";
+            this.embddVideo = "https://www.youtube.com/embed/GwVc7RWEfZU?si=0cVaKXzQhP9uFOPF";
             this.link = "";
             this.shortDesc = "A game design project for university in which we had to create a design document and early prototype. I also experimented with texture manipulation to enable destructive terrain and island detection algorithms to get pixel perfect collision.  <a href='https://docs.google.com/document/d/1BkHHxTAXP4tpdTUMZ5kxRpfiY3omXYdfLGzv5fSaqOA/edit?usp=sharing' target='_blank'>View the Design Doc here.</a>";
             this.date = "2025";
