@@ -4,176 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daniel Dingley Portfolio</title>
-    <style>
-        body {
-            
-            font-family: "Lucida Console", "Courier New", monospace;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            max-width: 100%;
-            position: relative;
-            background-color: #000000;
-        }
-
-        .mainContent {
-            
-            min-width: 300px;
-            width: 70%;
-            max-width: 1000px;
-            position: absolute;
-            padding: 3%;
-            
-            background-color: rgba(1,1,1,0.5);
-            box-shadow: 0 0 10px #ff24ed;
-        }
-        .GameUI {
-            max-width: 1000px;
-            position:absolute;
-            display:flex;
-            
-            background-color: rgba(1,1,1,0.1);
-            box-shadow: 0 0 10px rgba(255, 36, 237,0.5);
-        }
-
-        h1 {
-            padding-top: 0px;
-            color: #ffffff;
-            text-align: left;
-            font-size: 60px;
-        }
-        h2 {
-            padding-top: 20px;
-            color: #ffffff;
-            text-align: justify;
-            font-size: 30px;
-        }
-        h3 {
-            padding-top: 0px;
-            padding-right: 0%;
-            padding-left: 0%;
-            color: #ffffff;
-            font-size: 120%;
-        }
-        p {
-            color: #e0e0e0;
-            text-align: left;
-            font-size: 13;
-        }
-        .image {
-            width: 200px; /* Set a fixed width for the image */
-            padding: 20px; /* Add some spacing around the image */
-            float: right; /* Center the image horizontally */ /*<iframe frameborder="0" src="https://itch.io/embed-upload/8530496?color=333333" allowfullscreen="" width="640" height="380"><a href="https://giac.itch.io/supergarylowfps">Play Super Gary Low FPS on itch.io</a></iframe>*/
-        }
-
-        .image img {
-            margin: 5px;
-            float: right;
-        }
-        canvas
-        {
-            position: fixed;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .iSWButton
-        {
-            position: fixed;
-            overflow: hidden;
-        
-            z-index: 1;
-
-            padding: 10px 20px; /* Adjust padding for button size */
-            border: none;
-            background-color: #ff00f21a; /* Button background color */
-            color: #ffffff77; /* Button text color */
-            font-size: 18px; /* Button font size */
-            border-radius: 0; /* Square edges */
-            cursor: pointer;
-        }
-        .projFilterButton
-        {
-            padding-top: 3px;
-            padding-bottom: 3px;
-            padding-left: 0px;
-            text-align: left;
-            font-family: "Lucida Console", "Courier New", monospace;
-            border: none;
-            background-color: #ff00f23a; /* Button background color */
-            color: #ffffff; /* Button text color */
-            font-size: 33px; /* Button font size */
-            border-radius: 0; /* Square edges */
-            cursor: pointer;
-        }
-        .ProjectsView
-        {
-            max-width: 109%;
-            width: 109%;
-            height: 200px;
-            max-height: 200px;
-            margin-left: -4.5%;
-            display: flex;
-            align-items: flex-start;
-            overflow: hidden;
-            box-shadow: 0 0 10px #ff24ed;
-        }
-        a:link {
-        color: #ec60ff;
-        background-color: transparent;
-        text-decoration: none;
-        }
-
-        a:visited {
-        color: #ec60ff;
-        background-color: transparent;
-        text-decoration: none;
-        }
-
-        a:hover {
-        color: rgb(255, 115, 0);
-        background-color: transparent;
-        text-decoration: underline;
-        }
-
-        a:active {
-        color: #ec60ff;
-        background-color: transparent;
-        text-decoration: underline;
-        }
-        li 
-        {
-            margin-left: 18px;
-            color: #d4d4d4;
-            text-align: left;
-            font-size: 12;
-            font-weight: normal;
-            padding-bottom: 6px;
-        }
-        ul {
-            display: inline-block;
-            vertical-align: top;
-            color: hsl(293, 100%, 69%);
-            font-size: 14;
-            font-weight: bold;
-            text-align: left;
-            padding-bottom: 40px;
-            margin: 0px;
-            max-width: 370px;
-            list-style-position: none;
-            padding-inline-start: 0;
-        }
-        em
-        {
-            font-weight: bold;
-            font-style: normal;
-            color: #ec60ff;
-        }
-        code
-        {
-            color: white;
-        }
-
-    </style>
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="mainContent" id ="mainContent">
@@ -203,8 +34,11 @@
           </ul>
           <ul style="padding-right: 10%;" style="padding-left: 0%;">
             Certifications:
-            <li>Responsive Web Design <a href="https://www.freecodecamp.org/certification/dan-dingley/responsive-web-design-v9">(freeCodeCamp)</a><br>
-                <span style="color: rgb(160, 158, 158)">Covered HTML, CSS, Flexbox, Grid, Accessibility...</span>
+            <li><a target="_blank" href="https://www.freecodecamp.org/certification/dan-dingley/responsive-web-design-v9"><span class="ignore-link">Responsive Web Design</span> (freeCodeCamp)</a><br>
+                <span style="color: rgb(160, 158, 158)">HTML, CSS, Flexbox, Grid, Accessibility...</span>
+            </li>
+            <li><a target="_blank" href="https://www.freecodecamp.org/certification/dan-dingley/javascript-v9"><span class="ignore-link">JavaScript</span> (freeCodeCamp)</a><br>
+                <span style="color: rgb(160, 158, 158)">DOM Manipulation, Regex, Client-Side Storage(CRUD), Asynchronous Programming...</span>
             </li>
             </ul>
           <ul style="padding-right: 0%;">
