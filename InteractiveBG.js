@@ -1,10 +1,82 @@
-const pixelSize = 7;
+
+const background = document.querySelector(".background");
+let bgDimensions = background.getBoundingClientRect();
+const canvas = document.createElement("canvas");
+canvas.width = bgDimensions.width;
+canvas.height = bgDimensions.height;
+background.appendChild(canvas);
+
+const titleUI = document.getElementById("title");
+const gameHud = document.getElementById("game-hud");
+
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+ctx.fillStyle = "green";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+const pixelSize = 8;
+const scaling = 1;
+
+let cWidth = bgDimensions.width / scaling;
+let cHeight = bgDimensions.height / scaling;
+
+let mouseX =0; let mouseY = 0;
+let mouseTargX =0; let mouseTargY=0;
+let startTapX = 0;
+let startTapY = 0;
+let mouseMoved = false;
+let isCirclingTitle;
+let lockedToMouse=false;
+
+const wormList = [];
 const wormLength = 10;
 const wormSpeed = 4;
-const scaling = 1;
-let mouseX =0; let mouseY = 0;
-let cWidth = window.innerWidth / scaling;
-let cHeight = window.innerHeight / scaling;
+let mWormLength = 20;
+let mWormBankd = 0;
+let drawnMWorm = false;
+let lastBiteTime = 0;
+let lastSplitPoint;
+let splitEffectFrame = -1;
+let round = 0;
+let pinkieLevel = 1;
+let wCI = 0;
+let highScore = 0;
+let lastPortfolioScrolPos = 0;
+
+let mousePoses = [];
+let detachdMPs = [];
+
+var GameLoop = function Loop() {
+    Update();
+    Render();
+    // requestAnimationFrame(GameLoop);
+    return true;
+}
+var GameStart = function Start()
+{
+    window.scrollTo(0,0);
+    mouseY = canvas.height / 2;
+    mouseX = canvas.width / 2;
+    SetupEvents();
+    mWormLength = 12;
+    ctx.scale(scaling,scaling);
+    canvas.width = bgDimensions.width;
+    canvas.height = bgDimensions.height;
+    cWidth = canvas.width /scaling;
+    cHeight = canvas.height /scaling;
+    //if (isMobile)
+    {
+    //ctx.fillStyle = "purple";
+    }
+    //else
+    {
+        ctx.fillStyle = "black";
+    }
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    GameLoop();
+    return true;
+}
 
 let touchHandler = function(event) {
     if (immerseMode)
@@ -29,6 +101,9 @@ let touchHandler = function(event) {
         }
         mouseX += (x - startTapX) * 1.5;
         mouseY += (y - startTapY) * 1.5;
+        mouseTargX = mouseX;
+        mouseTargY = mouseY;
+        lockedToMouse=true;
         startTapX = x;
         startTapY = y;
         //mouseX = x;
@@ -48,6 +123,7 @@ let touchHandler = function(event) {
         DrawMouseWorm();
     }
 }
+
 
 class LightWorm {
     constructor(wli, x, y, xv, yv) {
@@ -192,44 +268,9 @@ class LightWorm {
             if (element.wli == this.wli){
             wormList.splice(index, 1);}
         })
-        //if (this.respawnOnDeath) {wormList[this.wli] = new LightWorm(this.wli, 500,500,1,1);}
     }
 }
 
-const immerseBttn = document.getElementById("immerseSwitch");
-const lengthUI = document.getElementById("wormLength");
-const highScoreUI = document.getElementById("highScore");
-const roundUI = document.getElementById("wormRound");
-const canvas = document.getElementById("interactiveBackground");
-const ctx = canvas.getContext("2d");
-const titleUI = document.getElementById("title");
-
-const wormList = [];
-
-// Set canvas size to fill the screen
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let mWormLength = 20;
-let mWormBankd = 0;
-let drawnMWorm = false;
-let lastBiteTime = 0;
-let lastSplitPoint;
-let splitEffectFrame = -1;
-let round = 0;
-let pinkieLevel = 1;
-let wCI = 0;
-let highScore = 0;
-let immerseMode = false;
-let lastPortfolioScrolPos = 0;
-var GameLoop = function Loop() {
-    Update();
-    Render();
-    //requestAnimationFrame(GameLoop);
-    return true;
-}
-let startTapX = 0;
-let startTapY = 0;
-let mouseMoved = false;
 function SetupEvents()
 {
     if (!isMobile)
@@ -239,14 +280,8 @@ function SetupEvents()
             if (!isCirclingTitle)
             {
                 mouseMoved = true;
-                mouseX = event.clientX / scaling;
-                mouseY = event.clientY / scaling;
-                mp = PixelSnap(mouseX,mouseY)
-                if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
-                {
-                    mousePoses.unshift(mp);
-                    DrawMouseWorm();
-                }
+                mouseTargX = event.clientX / scaling;
+                mouseTargY = event.clientY / scaling;
             }
         });
     }
@@ -257,36 +292,7 @@ function SetupEvents()
         //window.addEventListener('touchend', touchHandler, false);
     }
 }
-var GameStart = function Start()
-{
-    window.scrollTo(0,0);
-    if (isMobile)
-    {
-        immerseBttn.innerText = "Game View";
-    }
-    mouseY = canvas.height / 2;
-    mouseX = canvas.width / 2;
-    SetupEvents();
-    mWormLength = 12;
-    ctx.scale(scaling,scaling);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    cWidth = canvas.width /scaling;
-    cHeight = canvas.height /scaling;
-    //if (isMobile)
-    {
-    //ctx.fillStyle = "purple";
-    }
-    //else
-    {
-        ctx.fillStyle = "black";
-    }
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    GameLoop();
-    return true;
-}
-let isCirclingTitle;
+
 function Update()
 {
     isCirclingTitle = (!immerseMode && (isMobile || time < 4));
@@ -296,16 +302,37 @@ function Update()
     }
     if (isCirclingTitle || (!mouseMoved && !isMobile && !immerseMode))
     {
+        lockedToMouse = false;
         let titleRect = titleUI.getBoundingClientRect();
-        mouseX = titleRect.left + (-window.scrollX) + (titleRect.width / 4) - 20 + (Math.sin(time * 2) * 200);
-        mouseY = titleRect.bottom + (-window.scrollY) + 0 + (Math.sin((time - 1) * 5) * 20);
-
-        mp = PixelSnap(mouseX,mouseY)
-        if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+        mouseTargX = titleRect.left + (-window.scrollX) + (titleRect.width / 4) - 20 + (Math.sin(time * 2) * 200);
+        mouseTargY = titleRect.bottom + (-window.scrollY) + 0 + (Math.sin((time - 1) * 5) * 20);
+        mouseX = mouseTargX;
+        mouseY = mouseTargY;
+    }
+    else
+    {
+        if (lockedToMouse)
         {
-            mousePoses.unshift(mp);
-            DrawMouseWorm();
+            mouseX=mouseTargX; mouseY=mouseTargY;
         }
+        else
+        {
+            let xDif = mouseTargX-mouseX; let yDif = mouseTargY-mouseY;
+            let magnitude = Math.sqrt((xDif * xDif) + (yDif * yDif));
+            const mouseTargetSpeed = 10;
+            mouseX +=(xDif / magnitude) * mouseTargetSpeed * Math.min(5, magnitude/8);
+            mouseY += (yDif / magnitude) * mouseTargetSpeed * Math.min(5, magnitude/8);
+            if (magnitude < 2)
+            {
+                lockedToMouse = true;
+            }
+        }
+    }
+    mp = PixelSnap(mouseX,mouseY)
+    if (mousePoses.length == 0 || mp[0] != mousePoses[0][0] || mp[1] != mousePoses[0][1])
+    {
+        mousePoses.unshift(mp);
+        DrawMouseWorm();
     }
 
     let lastRound = -1;
@@ -315,15 +342,6 @@ function Update()
     let difcltyRampSpeed = 0.4;
     round = Math.floor(Math.pow(mWormLength / 50,0.95));
     let targLength = Math.floor(Math.pow(round + 1,1/0.95) * 50);
-    /*if (mWormLength < 20) {round = 0; targLength = 20}
-    else if (mWormLength < 40 / difcltyRampSpeed) {round = 1; targLength = 40 / difcltyRampSpeed;}
-    else if (mWormLength < 70 / difcltyRampSpeed) {round = 2;}
-    else if (mWormLength < 11 / difcltyRampSpeed) {round = 3;}
-    else if (mWormLength < 150 / difcltyRampSpeed) {round = 3;}
-    else if (mWormLength < 200 / difcltyRampSpeed) {round = 4;}
-    else if (mWormLength < 260 / difcltyRampSpeed) {round = 5;}
-    else if (mWormLength < 330 / difcltyRampSpeed) {round = 6;}
-    else if (mWormLength < 410 / difcltyRampSpeed) {round = 7;}*/
     pinkieLevel = 1 + Math.min(round, 10);
     if (wormList.length < pinkieLevel)
     {
@@ -377,19 +395,29 @@ function Update()
         mWormBankd -= 1;
         mWormLength += 1;
     }
+    let updateHud=false;
     if (mWormLength < highScore)
     {
-        highScoreUI.innerHTML = "High Score: " + highScore;
+        updateHud=true;
     }
-    if (lastLength != mWormLength && lengthUI != null) {lengthUI.innerHTML = "Length: " + mWormLength + "/" + targLength;}
-    if (lastRound != round && roundUI != null) {roundUI.innerHTML = "Round " + round;}
+    if (lastLength != mWormLength) {updateHud=true;}
+    if (lastRound != round) {updateHud=true;}
     if (mWormLength > highScore)
     {
         highScore = mWormLength;
-        highScoreUI.innerHTML = "New High Score: " + highScore;
+        updateHud=true;
     }
     lastLength = mWormLength;
     lastRound = round;
+    if (updateHud) {UpdateGameHUD();}
+}
+function UpdateGameHUD()
+{
+    gameHud.innerHTML = `<p class="hud-p">
+        <span>Round ${round}</span> | 
+        <span>Length: ${mWormLength}</span> | 
+        <span>High Score: ${highScore}</span>
+    </p>`;
 }
 function Render()
 {
@@ -400,11 +428,10 @@ function Render()
 
 // Function to draw a red square at the mouse coordinates
 function DrawSquare(x, y, col, multi = 1) {
-    //ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
     mp = PixelSnap(x,y);
     x = mp[0]; y = mp[1];
     ctx.fillStyle = col;
-    ctx.fillRect(x - (pixelSize * 0.5 * multi), y - (pixelSize * 0.5 * multi), pixelSize * multi, pixelSize * multi); // Draw a 50x50 red square centered at the mouse coordinates
+    ctx.fillRect(x - (pixelSize * 0.5 * multi), y - (pixelSize * 0.5 * multi), pixelSize * multi, pixelSize * multi);
 }
 
 function DetectCatch(x, y)
@@ -424,7 +451,7 @@ function SliceMWorm(index)
     lastBiteTime = time;
 
     detachdMPs.forEach((instance, index) => {
-        DrawSquare(instance[0],instance[1],"grey",1.05);
+        DrawSquare(instance[0],instance[1],"grey",1);
     });
     
 }
@@ -443,8 +470,7 @@ function DetectMWSlice(seg, index)
     }
     return foundSlice;
 }
-let mousePoses = [];
-let detachdMPs = [];
+
 function DrawMouseWorm()
 {
     drawnMWorm = true;
@@ -467,7 +493,7 @@ function DrawMouseWorm()
             let ua = a/mag; let ub = b/mag;
             if (mag > pixelSize)
             {
-                DrawSquare(instance[0],instance[1],"black",1.1)
+                DrawSquare(instance[0],instance[1],"black",1)
                 let dif = mag - pixelSize;
                 instance[0] += dif * ua;
                 instance[1] += dif * ub;
@@ -479,7 +505,7 @@ function DrawMouseWorm()
     if (mousePoses.length > mWormLength) 
     {
         let index = mousePoses.length - 1;
-        DrawSquare(mousePoses[index][0],mousePoses[index][1],"black",1.1)
+        DrawSquare(mousePoses[index][0],mousePoses[index][1],"black",1)
         mousePoses.pop();
     }
     if (sTSlice != -1)
@@ -487,80 +513,21 @@ function DrawMouseWorm()
         SliceMWorm(sTSlice);
     }
 }
-
-// Event listener to resize the canvas when the window size changes
-//window.addEventListener("resize", () => {
-  //  GameResize();
-//});
 var GameResize = function Resize()
 {
+    bgDimensions = background.getBoundingClientRect();
     ctx.scale(scaling,scaling);
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = bgDimensions.width;
+    canvas.height = bgDimensions.height;
     //console.log(canvas.width);
     cWidth = canvas.width /scaling;
     cHeight = canvas.height /scaling;
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
-
-immerseBttn.addEventListener("mouseover", function( event ) {   
-    event.target.style.backgroundColor = "rgba(255, 0, 242, 0.8)"; event.target.style.color = "#ffffff";}, false);
-immerseBttn.addEventListener("mouseout", function( event ) {   
-    event.target.style.backgroundColor = "rgba(255, 0, 242, 0.1)"; event.target.style.color = "#ffffff77";}, false);
-
-document.addEventListener("keydown", (event) => {
-    switch (event.key) {
-        case "p":
-            SwitchImmersion();
-            break;
-    }
-});
-
-function SwitchImmersion()
-{
-    immerseMode = !immerseMode;
-    if (immerseMode)
-    {
-        //lastPortfolioScrolPos = document.body.scrollTop;
-        
-        document.body.style.overflow = "hidden";
-        document.getElementById("mainContent").style.display = "none";
-        if (isMobile)
-        {
-            mouseX = cWidth / 2;
-            mouseY = cHeight / 2;
-            immerseBttn.innerText = "Portfolio View";
-        }
-        else
-        {
-            immerseBttn.innerText = "Game View (P - toggle)";
-        }
-    }
-    else
-    {
-        if (isMobile)
-        {
-            immerseBttn.innerText = "Game View";
-        }
-        else
-        {
-            immerseBttn.innerText = "Portfolio View (P)";
-        }
-        document.body.style.overflow = "auto";
-        document.getElementById("mainContent").style.display = "block";
-        window.scrollTo(0,0);
-    }
+function PixelSnap(x, y) {
+    return [
+        Math.round(x / pixelSize) * pixelSize,
+        Math.round(y / pixelSize) * pixelSize
+    ].map(Math.round);
 }
-
-// Initial drawing to handle page load
-//drawSquare(0, 0);
-//Start();
-
-
-
-function PixelSnap(x, y)
-{
-    return [(Math.round(x / pixelSize) * pixelSize),(Math.round(y / pixelSize) * pixelSize)];
-}
-

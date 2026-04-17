@@ -1,135 +1,159 @@
+html {
+    --framing-color: #ff24ed;
+    --quiet-framing-color: #bb35b0;
+    --highlight-color: hsl(293, 100%, 69%);
+    --text-color: whitesmoke;
+    --button-color: #ff00f23a;
+    --link-color: #bb35b0;
+    --link-color-hover: rgb(255, 115, 0);
+    --quiet-btn-color: rgba(255, 0, 242, 0.1);
+    --quiet-text-color: #ffffff77;
+    --outline-color: rgb(71, 71, 71);
+    --subtext-color: rgb(160, 158, 158);
+}
 body {
-    
+    padding:0;
+    margin:0;
     font-family: "Lucida Console", "Courier New", monospace;
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box;
+}
+.background {
+    box-sizing: border-box;
+    display: block;
+    position: fixed;
     width: 100%;
-    max-width: 100%;
-    position: relative;
-    background-color: #000000;
+    height: 100%;
+    background-color: black;
+    top:0;
+    left:0;
+    z-index: -2;
+    padding:0;
+}
+.page-box {
+    box-sizing: border-box;
+    margin: 0 auto;
+    min-width: 300px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0;
+    padding-top:20px;
+    /* background-color: rgba(1,1,1,0.5); */
+    color: var(--text-color);
+    backdrop-filter: blur(7px);
+}
+.central-content {
+    padding: 5%;
+    margin: 0;
+}
+.central-content-2 {
+    padding: 2%;
+    margin: 0;
+}
+.profile-image {
+    display:block;
+    width: 90%;
+    max-width: 230px;
+    /* width: 100%; */
+    /* padding: 0px; */
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0;
+    border-radius: 8px;
+    box-shadow: 0 6px 10px black; 
+    border: 1px solid var(--quiet-framing-color);
 }
 
-.mainContent {
-    
-    min-width: 300px;
-    width: 70%;
-    max-width: 1000px;
-    position: absolute;
-    padding: 3%;
-    
-    background-color: rgba(1,1,1,0.5);
-    box-shadow: 0 0 10px #ff24ed;
-}
-.GameUI {
-    max-width: 1000px;
-    position:absolute;
-    display:flex;
-    
-    background-color: rgba(1,1,1,0.1);
-    box-shadow: 0 0 10px rgba(255, 36, 237,0.5);
-}
+
 
 h1 {
-    padding-top: 0px;
+    padding-top: 10px;
     color: #ffffff;
     text-align: left;
-    font-size: 60px;
+    font-size: 2.5em;
 }
 h2 {
     padding-top: 20px;
     color: #ffffff;
-    text-align: justify;
-    font-size: 30px;
+    text-align: left;
+    font-size: 1.5em;
+    border-bottom: 1px solid var(--outline-color);
 }
 h3 {
     padding-top: 0px;
     padding-right: 0%;
     padding-left: 0%;
     color: #ffffff;
-    font-size: 120%;
+    font-size: 1.8em;
 }
 p {
     color: #e0e0e0;
     text-align: left;
-    font-size: 13;
+    font-size: 1em;
+    font-weight: normal;
+    font-style: normal;
 }
-.image {
-    width: 200px; /* Set a fixed width for the image */
-    padding: 20px; /* Add some spacing around the image */
-    float: right; /* Center the image horizontally */ /*<iframe frameborder="0" src="https://itch.io/embed-upload/8530496?color=333333" allowfullscreen="" width="640" height="380"><a href="https://giac.itch.io/supergarylowfps">Play Super Gary Low FPS on itch.io</a></iframe>*/
+.subtext {
+    color: var(--subtext-color);
 }
-
-.image img {
-    margin: 5px;
-    float: right;
+.spacing {
+    display: block;
+    height: 50px;
 }
-canvas
+button
 {
-    position: fixed;
-    overflow: hidden;
-    z-index: -1;
-}
-.iSWButton
-{
-    position: fixed;
-    overflow: hidden;
-
-    z-index: 1;
-
-    padding: 10px 20px; /* Adjust padding for button size */
-    border: none;
-    background-color: #ff00f21a; /* Button background color */
-    color: #ffffff77; /* Button text color */
-    font-size: 18px; /* Button font size */
-    border-radius: 0; /* Square edges */
-    cursor: pointer;
-}
-.projFilterButton
-{
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 0px;
+    margin-top: 60px;
+    padding: 5px 10px;
     text-align: left;
-    font-family: "Lucida Console", "Courier New", monospace;
     border: none;
-    background-color: #ff00f23a; /* Button background color */
-    color: #ffffff; /* Button text color */
+    background-color: var(--button-color); /* Button background color */
+    color: var(--text-color); /* Button text color */
     font-size: 33px; /* Button font size */
     border-radius: 0; /* Square edges */
     cursor: pointer;
+    border-radius: 5px;
 }
-.ProjectsView
-{
-    max-width: 109%;
-    width: 109%;
-    height: 200px;
-    max-height: 200px;
-    margin-left: -4.5%;
-    display: flex;
-    align-items: flex-start;
-    overflow: hidden;
-    box-shadow: 0 0 10px #ff24ed;
+button.quiet, button.quiet:active {
+    z-index: 2;
+    color: var(--quiet-text-color);
+    background-color: var(--quiet-btn-color);
 }
+button:hover {
+    background-color: color-mix(in hsl,var(--button-color), var(--highlight-color) 50%);
+}
+p.hud-p {
+    text-align: center;
+}
+#game-hud {
+    position: fixed;
+    bottom: 0;
+    margin: 0 auto;
+    text-align: center;
+    left:0;
+    right:0;
+}
+
+
+
 a:link {
-color: #ec60ff;
+color: var(--link-color);
 background-color: transparent;
 text-decoration: none;
 }
 
 a:visited {
-color: #ec60ff;
+color: var(--link-color);
 background-color: transparent;
 text-decoration: none;
 }
 
 a:hover {
-color: rgb(255, 115, 0);
+color: var(--link-color-hover);
 background-color: transparent;
 text-decoration: underline;
 }
 
 a:active {
-color: #ec60ff;
+color: var(--framing-color);
 background-color: transparent;
 text-decoration: underline;
 }
@@ -149,7 +173,7 @@ li
 ul {
     display: inline-block;
     vertical-align: top;
-    color: hsl(293, 100%, 69%);
+    color: var(--highlight-color);
     font-size: 14;
     font-weight: bold;
     text-align: left;
@@ -163,9 +187,235 @@ em
 {
     font-weight: bold;
     font-style: normal;
-    color: #ec60ff;
+    color: var(--framing-color);
 }
-code
+#immerse-switch 
 {
+    position: fixed;
+    top:0;
+    left:0;
+    margin:0;
+    font-size: 1em;
+}
+
+
+
+#pv-inspect-section {
     color: white;
+    border-bottom: 1px solid var(--outline-color);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#project-header-card
+{
+}
+#main-proj-desc, #main-proj-title
+{
+    padding: 0 10%;
+}
+#main-proj-title
+{
+    margin-top:0;
+}
+#head-ifrm {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+}
+#head-ifrm>iframe {
+    box-sizing: border-box;
+    position: absolute;
+    top:0;
+    left:-0.5%;
+    z-index: 3;
+    width: 100.5%;
+    /* height: 100%; */
+    border:none;
+}
+ #main-proj-img {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+#projects-view 
+{
+    
+}
+
+
+#pv-scroller {
+    border: 1px solid var(--outline-color);
+    border-left: none;
+    border-right: none;
+    display: flex;
+    width: 100%;
+    margin:0;
+    padding:0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+}
+#pv-scroller ::-webkit-scrollbar { 
+    display: none;  /* Older Safari and Chromium */
+}
+.project-thumb {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    
+    /* border: 2px solid green; */
+    /* border-color:  var(--framing-color); */
+}
+.project-thumb-img {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    transition: 0.2s;
+    position: relative;
+    z-index: -2;
+    filter: brightness(50%);
+    /* border-color:  var(--outline-color); */
+    box-sizing:  border-box;
+    /* background-color: #bb35b0; */
+}
+.project-thumb.hover>.project-thumb-img {
+    transform: scale(1.02);
+    /* border: 2px solid var(--outline-color); */
+    filter: brightness(100%);
+    z-index: 2;
+}
+
+.project-thumb-title 
+{
+    box-sizing: border-box;
+    pointer-events: none;
+    color:white;
+    text-align: center;
+    padding: 15% 10px 0 10px;
+    display: block;
+    height: 60%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    bottom:90px;
+    background: linear-gradient(0deg, rgba(0, 0, 0,0.9) 50%, rgba(0, 0, 0,0));
+    opacity: 0;
+    transition: 0.2s;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: 0 auto;
+    /* background-color: green; */
+    /* top: -100px;
+    left: -4px; */
+
+}
+
+.project-thumb.hover>.project-thumb-title {
+    opacity: 0.7;
+    transform: scale(1.02);
+    /* background-color: red; */
+}
+
+
+@media (max-width: 1020px) 
+{
+    h1::before {
+        content: " ";
+
+        display: block;
+        width: 100%;
+        height: 2px;
+        margin: 0;
+        margin-bottom: 20px;
+        margin-top: -20px;
+        padding: 0;
+        
+        background-color: var(--framing-color);
+        box-shadow: 0 0 20px var(--framing-color);
+    }
+    body::after {
+        content: " ";
+        background-color: black;
+        display: block;
+        width: 100%;
+        height: 30px;
+        border-bottom: 2px solid rgb(15, 15, 15);
+        box-shadow: 0 0 20px black;
+        position: fixed;
+        top:0;
+        z-index: 1;
+    }
+    #main-proj-title
+    {
+        text-align: center;
+        margin-top: 5px;
+    }
+    
+}
+@media (min-width: 1020px) /* PCs only */
+{
+    .page-box{
+        width: 70%;
+        max-width: 1000px;
+        /* box-shadow: 0 0 10px var(--framing-color); */
+        border: 1px solid var(--quiet-framing-color);
+        padding: 0;
+        border-radius: 5px 5px 0 0;
+        /* background-color: rgba(0, 0, 0, 0.3); */
+        margin-top:20px;
+        margin-bottom: 20px;    
+        
+    }
+    .central-content{
+        padding: 0 8%;
+    }
+    .profile-image {
+        width: 200px;
+        /* padding-left: 10px; */
+        float: right; 
+        margin: none;
+        margin-left: 50px;
+    }
+    h1 
+    {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .align-center 
+    {
+        width: 80%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin: auto;
+        padding: 0;
+    }
+    .align-center>h2 {
+        text-align: center;
+        /* text-decoration: underline; */
+    }
+    .grid-lists 
+    {
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 6%;
+    }
+    #project-header-card
+    {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+    }
+    .project-thumb-title {
+        padding: 20% 10px 0 10px;
+    }
 }
