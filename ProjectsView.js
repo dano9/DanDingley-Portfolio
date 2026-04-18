@@ -509,8 +509,8 @@ function inspectProject(project)
     bio += "<br><br>" + project.engine + " (" + project.date + ")";
     
     let ifrmHtml = '<div id="head-ifrm" style="position:relative">';
-    ifrmHtml+=`<img id="main-proj-img" src="${project.getImage(0)}">`;
-    if (project.embddVideo != null) {
+    ifrmHtml+=`<div id="main-proj-img-div"><img id="main-proj-img" src="${project.getImage(0)}"></div>`;
+    if (project.embddVideo) {
         ifrmHtml += `<iframe src="${project.embddVideo}" allow="compute-pressure"></iframe>`;
     }
     ifrmHtml += '</div>';
@@ -520,12 +520,18 @@ function inspectProject(project)
     `<div id="pvp-content">
         <div id="project-header-card" class="central-content-2">${ifrmHtml+cardHtml}
     </div>`;
+
     iframe = pvPInspectSection.querySelector("iframe");
     if (iframe!=null){
         iframe.style.opacity=0;
         iframe.addEventListener("load", () => {
-            onLoadIFrame(iframe, pvpContent.querySelector("#main-proj-img"));
+            onLoadIFrame(iframe, pvPInspectSection.querySelector("#main-proj-img"));
     });
+        const bufferIcon = document.createElement("img");
+        bufferIcon.classList.add("buffer-icon");
+        bufferIcon.src = "bufferIcon.png";
+        pvPInspectSection.querySelector("#main-proj-img-div").appendChild(bufferIcon);
+
     }
     ifrmOpac=0;
     console.log(project.title);
@@ -590,6 +596,7 @@ function manageInspectedProject()
 function onLoadIFrame(iframe, matchEl)
 {
     setTimeout(()=>{
+        pvPInspectSection.querySelector(".buffer-icon").style.opacity=0;
     let imgrect = matchEl.getBoundingClientRect();
     if (isMobile)
     {

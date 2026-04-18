@@ -238,10 +238,37 @@ em
     border:none;
     transition: 0.3s;
 }
- #main-proj-img {
-    width: 100%;
+#main-proj-img-div
+{
+    display: inline-block;
+    width:100%;
+    position: relative;
 }
+#main-proj-img {
+    width: 100%;
 
+    /* position: relative; */
+}
+@keyframes bufferSpinAnim {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  /* from {background-color: red;}
+  to {background-color: yellow;} */
+}
+.buffer-icon {
+    pointer-events: none;
+    width: 60px;
+    position: absolute;
+    z-index: 20;
+    left: calc(50% - 30px);
+    top: calc(50% - 30px);
+    animation: bufferSpinAnim;
+    opacity: 0.65;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transition: 0.6s;
+}
 
 
 
@@ -349,6 +376,8 @@ em
     transform: scale(1.02);
     /* background-color: red; */
 }
+
+
 
 
 @media (max-width: 1020px) 
