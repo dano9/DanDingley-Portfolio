@@ -11,11 +11,15 @@ html {
     --outline-color: rgb(71, 71, 71);
     --subtext-color: rgb(160, 158, 158);
 }
+
 body {
     padding:0;
     margin:0;
     font-family: "Lucida Console", "Courier New", monospace;
     box-sizing: border-box;
+}
+html, body {
+    overscroll-behavior: none;
 }
 .background {
     box-sizing: border-box;
@@ -232,6 +236,7 @@ em
     width: 100.5%;
     /* height: 100%; */
     border:none;
+    transition: 0.3s;
 }
  #main-proj-img {
     width: 100%;

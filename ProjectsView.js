@@ -70,7 +70,7 @@ class Project {
         {
             this.embddVideo = "https://www.youtube.com/embed/GrznYMMlR1Y?si=wFJH9_5cEPwg71vM?autoplay=1";
             this.link = "<a href='https://gamejolt.com/games/apothalypse/588775' target='_blank'>Play it here</a>";
-            this.shortDesc = "A metroidvania demo I made with an artist. One of the largest projects I've worked on that made me truly understand the commitment and dedication it takes to produce an expansive polished game, as well as the importance of keeping your team happy and motivated.";
+            this.shortDesc = "A metroidvania demo I made with an artist. One of the largest projects I've worked on that made me truly understand the commitment and dedication it takes to produce an expansive polished game.";
             this.date = "2021";
         }
         else if (title == "Battle Babies")
@@ -425,10 +425,12 @@ pvPreviewScroll.addEventListener("mouseout", ()=>{if(isMouseOver){
 }
      isMouseOver=false;})
 
-
+let ifrmOpac=0;
+let iframe= null;
 function inspectProject(project)
 {
     if (inspectedProject === project && isInspectingProject) { return;}
+    iframe=null;
     inspectedProject=project;
     isInspectingProject=true;
 
@@ -448,6 +450,14 @@ function inspectProject(project)
     `<div id="pvp-content">
         <div id="project-header-card" class="central-content-2">${ifrmHtml+cardHtml}
     </div>`;
+    iframe = pvPInspectSection.querySelector("iframe");
+    if (iframe!=null){
+        iframe.style.opacity=0;
+        iframe.addEventListener("load", () => {
+            onLoadIFrame(iframe, pvpContent.querySelector("#main-proj-img"));
+    });
+    }
+    ifrmOpac=0;
     console.log(project.title);
     pvPInspectSection.style.height="10px";
     pvPInspectSection.style.display="block";
@@ -461,6 +471,7 @@ function closeInspectedProject()
     curInspHeight=10;
     pvPInspectSection.style.display="none";
     pvPInspectSection.innerHTML = "";
+    iframe=null;
 }
 function manageInspectedProject()
 {
@@ -473,13 +484,54 @@ function manageInspectedProject()
     }
     else if (curInspHeight > targInspHeight)
     {
-        const iframe= pvpContent.querySelector("iframe");
-        if (iframe!=null){iframe.style.height=pvpContent.querySelector("#main-proj-img").getBoundingClientRect().height+"px";}
         curInspHeight=targInspHeight;
         pvPInspectSection.style.height=curInspHeight + "px";
     }
-}
+    if (iframe != null)
+    {
+        // var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        // if (iframeDoc.readyState == 'complete')
+        // {
+        //     if (ifrmOpac < 1)
+        //     {
+        //         ifrmOpac+=0.1;
+        //         iframe.style.opacity=ifrmOpac;
+        //         if (ifrmOpac >= 1)
+        //         {
+        //             let imgrect = pvpContent.querySelector("#main-proj-img").getBoundingClientRect();
+        //             if (isMobile)
+        //             {
+        //                 iframe.style.width=(imgrect.width+1)+"px";
+        //                 iframe.style.height=(imgrect.height+0.5)+"px";
+        //                 iframe.style.left = "0.5px";
+        //             }
+        //             else
+        //             {
+        //                 iframe.style.height=imgrect.height+"px";
+        //             }
+        //             ifrmOpac = 1;
+        //             iframe.style.opacity=1;
 
+        //         }
+        //     }
+        // }
+    }
+}
+function onLoadIFrame(iframe, matchEl)
+{
+    let imgrect = matchEl.getBoundingClientRect();
+    if (isMobile)
+    {
+        iframe.style.width=(imgrect.width+1)+"px";
+        iframe.style.height=(imgrect.height+0.5)+"px";
+        iframe.style.left = "0.5px";
+    }
+    else
+    {
+        iframe.style.height=imgrect.height+"px";
+    }
+    console.log("iframe loaded"); iframe.style.opacity=1;
+}
 
 
 function pvResize()

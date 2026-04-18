@@ -11,8 +11,8 @@ const gameHud = document.getElementById("game-hud");
 
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
-ctx.fillStyle = "green";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+// ctx.fillStyle = "green";
+// ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 const pixelSize = 8;
 const scaling = 1;
@@ -287,8 +287,10 @@ function SetupEvents()
     }
     else
     {
-        window.addEventListener('touchstart', touchHandler, false);
-        window.addEventListener('touchmove', touchHandler, false);
+        window.addEventListener('touchstart', touchHandler, { passive: false });
+        window.addEventListener('touchmove', touchHandler, { passive: false });
+        // window.addEventListener('touchstart', touchHandler, { passive: false });
+        canvas.addEventListener('touchmove', e=>{e.preventDefault()}, { passive: false });
         //window.addEventListener('touchend', touchHandler, false);
     }
 }
