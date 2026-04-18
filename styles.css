@@ -251,7 +251,7 @@ em
 
 #projects-view 
 {
-    
+    position: relative;
 }
 
 
@@ -267,9 +267,29 @@ em
     overflow-y: hidden;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+    position: relative;
 }
 #pv-scroller ::-webkit-scrollbar { 
     display: none;  /* Older Safari and Chromium */
+}
+.pv-scroller-arrow {
+    width: 20px;
+    height: 70px;
+    z-index: 200;
+    position: absolute;
+    top: 50px;
+    pointer-events: none;
+    transition: 0.2s;
+    opacity:0;
+    /* transform: scale(-1,0); */
+}
+.pv-scroller-arrow.left {
+    left:7px;
+    transform: rotateY(180deg);
+}
+.pv-scroller-arrow.right {
+    right:7px;
+    /* transform: scale(-1,0); */
 }
 .project-thumb {
     display: inline-block;

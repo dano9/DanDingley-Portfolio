@@ -6,6 +6,15 @@ pvContainer.appendChild(pvPreviewScroll);
 const pvPInspectSection = document.createElement("div");
 pvPInspectSection.id = "pv-inspect-section";
 pvPInspectSection.style.display = "none";
+
+const leftScrollArrow = document.createElement("img");
+leftScrollArrow.src="thinArrow.png"; leftScrollArrow.classList.add("left"); leftScrollArrow.classList.add("pv-scroller-arrow");
+pvContainer.appendChild(leftScrollArrow);
+const rightScrollArrow = document.createElement("img");
+rightScrollArrow.src="thinArrow.png"; rightScrollArrow.classList.add("right"); rightScrollArrow.classList.add("pv-scroller-arrow");
+pvContainer.appendChild(rightScrollArrow);
+
+//'<img src="thinArrow.png" class="pv-scroller-arrow left"><img src="thinArrow.png" class="pv-scroller-arrow right">';
 pvContainer.appendChild(pvPInspectSection);
 
 let projectCount = 3;
@@ -15,6 +24,7 @@ const baseThumbnailHeight = 200;
 let curThumbWidthMulti=0.5;
 
 pvPreviewScroll.style.height =(baseThumbnailHeight*curThumbWidthMulti) + "px";
+
 
 let startScrollVal=0;
 let lastAutoScrollFrame=0;
@@ -29,6 +39,8 @@ let inspectedProject=null;
 let curInspHeight=10;
 let targInspHeight=100;
 let pvpContent=null;
+
+let hoveringProj = null;
 
 
 const projectNames = ["*Space Blocks", "*Untitled VR Game", "*Apothalypse", "Down Stream", "*Battle Babies", "*The Yellow Mellow Fellow", "*Home Wrecker", "*Slice VR Prototype", "*Multiplayer FPS", "*Horror Laboratory", "The Punk Police", "*Baby Snatcher", "!Limb Land", "!Ant Farm Simulation", "SuperGary LowFPS", "!Multiplayer FPS", "!Gnome Wizard", "!Alien Harbourer"];
@@ -268,6 +280,7 @@ function fillScrollContainer()
         
         projects[pi].curThumbWidget = thumbnails[ti];
     }
+    // pvContainer.innerHTML += '<img src="thinArrow.png" class="pv-scroller-arrow left"><img src="thinArrow.png" class="pv-scroller-arrow right">';
     // pvContainer.scrollLeft += (baseThumbnailWidth*curThumbWidthMulti)*startOffset;
     setTimeout(()=>{pvPreviewScroll.scrollLeft = (baseThumbnailWidth*curThumbWidthMulti)*(startOffset); startScrollVal=pvPreviewScroll.scrollLeft;}, 1);
 }
@@ -306,12 +319,81 @@ function scrollNewThumbnails()
         shiftAmnt = scrollDif>0 ? Math.floor(shiftAmnt) :  Math.ceil(shiftAmnt);
         shiftThumbnails(-shiftAmnt);
     }
-    
-    scrollDif =Math.abs(lastScrollPos-pvPreviewScroll.scrollLeft);
+}
+function scrollPreview(event) {
+    if (isEdgeScrolling)
+    {
+        pvPreviewScroll.scrollLeft += event.deltaX;
+        return;
+    }
+  event.preventDefault();
+  const deltaTotal = (event.deltaY * -1) + event.deltaX;
+  pvPreviewScroll.scrollLeft += deltaTotal;
+  if (deltaTotal < 0) {lastScrollDir=1;}
+  else if (deltaTotal > 0) {lastScrollDir=-1;}
+}
+let curEdgeScrollSpeed=0;
+let isEdgeScrolling=false;
+function manageScroll()
+{
+    isEdgeScrolling=false;
+    if (!isMouseOver) {mouseXP=0.5; }
+    let targScroll = 0;
+    isAutoScrolling=false;
+    if (!isMouseOver && time-lastHoverTime>0.7 && !isInspectingProject)
+    {
+        targScroll = 1 * lastScrollDir;
+        curEdgeScrollSpeed=0;
+        isAutoScrolling=true;
+    }
+    else
+    {
+        if (isMouseOver && mouseXP > 0.9)
+        {
+            curEdgeScrollSpeed = Math.min(curEdgeScrollSpeed+0.2,7);
+            targScroll=curEdgeScrollSpeed;
+            lastScrollDir=1; isEdgeScrolling=true;
+        }
+        else if (isMouseOver && mouseXP < 0.1)
+        {
+            curEdgeScrollSpeed = Math.max(curEdgeScrollSpeed-0.2,-7);
+            targScroll=curEdgeScrollSpeed;  
+            lastScrollDir=-1; isEdgeScrolling=true;
+        }
+        else
+        {
+            curEdgeScrollSpeed=0;
+            targScroll=0;
+        }
+    }
+
+    let accel=Math.max(0.1*Math.abs(curAutoScrollSpeed),0.05);
+    if (curAutoScrollSpeed < targScroll) {curAutoScrollSpeed+=accel;}
+    if (curAutoScrollSpeed > targScroll) {curAutoScrollSpeed-=accel;}
+
+
+    if (Math.abs(curAutoScrollSpeed) > 0 && time - lastAutoScrollFrame > 0.05/Math.abs(curAutoScrollSpeed))
+    {
+        pvPreviewScroll.scrollLeft += 1 * curAutoScrollSpeed;//Math.abs(curAutoScrollSpeed);
+        lastAutoScrollFrame = time;
+    }
+    if (!isAutoScrolling && curAutoScrollSpeed < -0.5)
+    {
+        leftScrollArrow.style.opacity=0.6;
+    } else {leftScrollArrow.style.opacity=0;}
+    if (!isAutoScrolling && curAutoScrollSpeed > 0.5)
+    {
+        rightScrollArrow.style.opacity=0.6;
+    } else {rightScrollArrow.style.opacity=0;}
+    scrollNewThumbnails();
+
+
+    scrollDif =lastScrollPos-pvPreviewScroll.scrollLeft;
     if (scrollDif != 0)
     {
         lastScrollDir = scrollDif < 0 ? 1 : -1;
     }
+    scrollDif = Math.abs(scrollDif);
     if (scrollDif> 20)
     {
         if (!isScrolling)
@@ -333,17 +415,6 @@ function scrollNewThumbnails()
     }
     lastScrollPos=pvPreviewScroll.scrollLeft;
 }
-function autoScroll()
-{
-    if (!isMouseOver && time-lastHoverTime>0.7 && !isInspectingProject)
-    {
-        if (curAutoScrollSpeed < 1) {curAutoScrollSpeed+=0.05;}
-    }
-    else
-    {
-        if (curAutoScrollSpeed >0) {curAutoScrollSpeed-=0.05;}
-    }
-}
 
 let mouseXPos=0;
 let mouseXP=0;
@@ -363,18 +434,12 @@ function pvStart()
 function pvUpdate()
 {
     // manageCursorScroll();
-    autoScroll();
+    // autoScroll();
+    manageScroll();
     // if (isMouseOver && !isMobile)
     // {
     //     pvPreviewScroll.scrollLeft += 
     // }
-
-    if (curAutoScrollSpeed > 0 && time - lastAutoScrollFrame > 0.05/curAutoScrollSpeed)
-    {
-        pvPreviewScroll.scrollLeft += 1 * lastScrollDir;
-        lastAutoScrollFrame = time;
-    }
-    scrollNewThumbnails();
     manageThumbnails();
     manageInspectedProject();
 }
@@ -384,6 +449,7 @@ function hoverThumbnail(target)
     
     const thumb = thumbnails[parseInt(target.id.slice(1,target.id.length))];
     thumb.isMouseOver=true;
+    hoveringProj = thumb.project;
     thumbnails.forEach(otherThumb=>{
         if (otherThumb !== thumb)
         {
@@ -399,12 +465,16 @@ function exitHoverThumbnail(target)
     // target.innerHTML = "Hello";
     const thumb = thumbnails[parseInt(target.id.slice(1,target.id.length))];
     thumb.isMouseOver=false;
+    if (thumb.project === hoveringProj)
+    {
+        hoveringProj = null;
+    }
     
 }
 function manageThumbnails()
 {
     thumbnails.forEach(thumb=>{
-        if ((inspectedProject === thumb.project || (thumb.isMouseOver))&& !isScrolling && time-lastScrollTime>0.3)
+        if (((inspectedProject === thumb.project && (hoveringProj===thumb.project || hoveringProj==null)) || (thumb.isMouseOver))&& !isScrolling && time-lastScrollTime>0.3)
         {
             if (!thumb.element.classList.contains("hover")) {thumb.element.classList.add("hover");}
         }
@@ -519,18 +589,21 @@ function manageInspectedProject()
 }
 function onLoadIFrame(iframe, matchEl)
 {
+    setTimeout(()=>{
     let imgrect = matchEl.getBoundingClientRect();
     if (isMobile)
     {
         iframe.style.width=(imgrect.width+1)+"px";
         iframe.style.height=(imgrect.height+0.5)+"px";
-        iframe.style.left = "0.5px";
+        iframe.style.left = "0.25px";
     }
     else
     {
         iframe.style.height=imgrect.height+"px";
     }
-    console.log("iframe loaded"); iframe.style.opacity=1;
+    console.log("iframe loaded"); iframe.style.opacity=1;},
+
+    1000);
 }
 
 
@@ -541,9 +614,14 @@ function pvResize()
     {
         curThumbWidthMulti=0.5;    
     }
-    pvPreviewScroll.style.height =(baseThumbnailHeight*curThumbWidthMulti) + "px";
+    const pvScrollH = (baseThumbnailHeight*curThumbWidthMulti);
+    pvPreviewScroll.style.height =pvScrollH + "px";
+    rightScrollArrow.style.height = (pvScrollH*0.5) + "px";
+    leftScrollArrow.style.height = (pvScrollH*0.5) + "px";
+    rightScrollArrow.style.top = (pvScrollH*0.25) + "px";
+    leftScrollArrow.style.top = (pvScrollH*0.25) + "px";
     thumbnails.forEach(thumb=>{
-        let width = baseThumbnailWidth*curThumbWidthMulti + "px";
+        let width = (baseThumbnailWidth*curThumbWidthMulti)+ "px";
         thumb.element.style.width = width;
         thumb.element.style.minWidth = width;
         thumb.element.style.maxWidth = width;
@@ -571,20 +649,6 @@ projFilterBtn.addEventListener("click",switchProjFilter);
 
 
 
-function scrollPreview(event) {
-  event.preventDefault();
-  pvPreviewScroll.scrollLeft += event.deltaY * -1;
-  if (event.deltaY <0) {lastScrollDir=-1;}
-  else if (event.deltaY > 0) {lastScrollDir=1;}
-//   previe
 
-//   scale += event.deltaY * -0.01;
-
-//   // Restrict scale
-//   scale = Math.min(Math.max(0.125, scale), 4);
-
-//   // Apply scale transform
-//   el.style.transform = `scale(${scale})`;
-}
 
 pvPreviewScroll.onwheel = scrollPreview;
