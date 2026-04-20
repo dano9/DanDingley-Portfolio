@@ -195,6 +195,8 @@ class ThumbnailWidget {
         this.titleText=element.querySelector(".project-thumb-title");
         this.projectIndx = projectIndx;
         this.isMouseOver=false;
+        this.oldImg=null;
+        this.oldText=null;
     }
 }
 
@@ -287,22 +289,51 @@ function fillScrollContainer()
 
 function shiftThumbnails(shiftAmnt)
 {
-    for (let i = 0; i < thumbnails.length; i++)
+    for (let i = shiftAmnt > 0 ? 0 : thumbnails.length-1; shiftAmnt > 0 ? i < thumbnails.length : i >= 0; i += shiftAmnt > 0 ? 1 : -1)
     {
         const thumb = thumbnails[i];
+        const nextThumb = thumbnails[(((i + shiftAmnt) % thumbnails.length) + thumbnails.length) % thumbnails.length];
 
         const pi = (((thumb.projectIndx + shiftAmnt) % projects.length) + projects.length) % projects.length;
 
         thumb.project = projects[pi];
         thumb.projectIndx+= shiftAmnt;
-        thumb.image.src = thumb.project.getThumbnailSrc();
-        thumb.titleText.textContent = thumb.project.getThumbnailText();
+        // thumb.image.src = thumb.project.getThumbnailSrc();
+        if (nextThumb.project === thumb.project)
+        {
+            thumb.oldImg = thumb.image;
+            thumb.oldText = thumb.titleText;
+            const newImage = nextThumb.image; const newText = nextThumb.titleText;
+            try{ newImage.parentElement.removeChild(newImage); newText.parentElement.removeChild(newText);}
+            catch {}
+            // thumb.element.insertBefore(newImage, thumb.textContent);
+            // thumb.element.appendChild(newImage);
+            // thumb.element.appendChild(newText);
+            thumb.element.appendChild(newText);
+            thumb.element.insertBefore(newImage, thumb.element.firstChild);
+            thumb.image = newImage;
+            thumb.titleText = newText;
+        }
+        else
+        {
+            const newImage = nextThumb.oldImg; 
+            const newText = nextThumb.oldText;
+            try{ newImage.parentElement.removeChild(newImage); newText.parentElement.removeChild(newText);}
+            catch {}
+            // thumb.element.insertBefore(newImage, thumb.textContent);
+            thumb.element.appendChild(newText);
+            thumb.element.insertBefore(newImage, thumb.element.firstChild);
+            thumb.image = newImage;
+            thumb.titleText = newText;
+            thumb.image.src = thumb.project.getThumbnailSrc();
+            thumb.titleText.textContent = thumb.project.getThumbnailText();
+            console.log("loaded new image");
+        }
         if (isMobile)
         {
             thumb.isMouseOver=false;
         }
     }
-    // hastenThumbTransitions();
 }
 
 let lastScrollPos=0;
@@ -348,13 +379,13 @@ function manageScroll()
     }
     else
     {
-        if (isMouseOver && mouseXP > 0.9)
+        if (!isMobile && isMouseOver && mouseXP > 0.9)
         {
             curEdgeScrollSpeed = Math.min(curEdgeScrollSpeed+0.2,7);
             targScroll=curEdgeScrollSpeed;
             lastScrollDir=1; isEdgeScrolling=true;
         }
-        else if (isMouseOver && mouseXP < 0.1)
+        else if (!isMobile && isMouseOver && mouseXP < 0.1)
         {
             curEdgeScrollSpeed = Math.max(curEdgeScrollSpeed-0.2,-7);
             targScroll=curEdgeScrollSpeed;  
@@ -474,7 +505,7 @@ function exitHoverThumbnail(target)
 function manageThumbnails()
 {
     thumbnails.forEach(thumb=>{
-        if (((inspectedProject === thumb.project && (hoveringProj===thumb.project || hoveringProj==null)) || (thumb.isMouseOver))&& !isScrolling && time-lastScrollTime>0.3)
+        if (((inspectedProject === thumb.project && (hoveringProj===thumb.project || hoveringProj==null)) || (thumb.isMouseOver))&& !isScrolling && !isEdgeScrolling && time-lastScrollTime>0.3)
         {
             if (!thumb.element.classList.contains("hover")) {thumb.element.classList.add("hover");}
         }
