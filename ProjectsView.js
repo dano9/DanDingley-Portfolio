@@ -8,10 +8,10 @@ pvPInspectSection.id = "pv-inspect-section";
 pvPInspectSection.style.display = "none";
 
 const leftScrollArrow = document.createElement("img");
-leftScrollArrow.src="thinArrow.png"; leftScrollArrow.classList.add("left"); leftScrollArrow.classList.add("pv-scroller-arrow");
+leftScrollArrow.src="Assets/thinArrow.png"; leftScrollArrow.classList.add("left"); leftScrollArrow.classList.add("pv-scroller-arrow");
 pvContainer.appendChild(leftScrollArrow);
 const rightScrollArrow = document.createElement("img");
-rightScrollArrow.src="thinArrow.png"; rightScrollArrow.classList.add("right"); rightScrollArrow.classList.add("pv-scroller-arrow");
+rightScrollArrow.src="Assets/thinArrow.png"; rightScrollArrow.classList.add("right"); rightScrollArrow.classList.add("pv-scroller-arrow");
 pvContainer.appendChild(rightScrollArrow);
 
 //'<img src="thinArrow.png" class="pv-scroller-arrow left"><img src="thinArrow.png" class="pv-scroller-arrow right">';
@@ -560,7 +560,7 @@ function inspectProject(project)
     });
         const bufferIcon = document.createElement("img");
         bufferIcon.classList.add("buffer-icon");
-        bufferIcon.src = "bufferIcon.png";
+        bufferIcon.src = "Assets/bufferIcon.png";
         pvPInspectSection.querySelector("#main-proj-img-div").appendChild(bufferIcon);
 
     }
