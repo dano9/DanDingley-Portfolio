@@ -519,3 +519,30 @@ em
     height: 1em;
     text-align: center;
 }
+.playable-image {
+    height: fit-content; display: block; padding: 5px; background-color: grey; float: right; width: 50%; max-width: 40vw; position: relative;
+
+    * {
+        pointer-events: none;
+    }
+    img:nth-child(1) {
+        filter: blur(2px);
+        width: 100%;
+    }
+    img:nth-child(2) {
+        width: 10%; position: absolute; left: 0; right:0; top:0; bottom:0; margin: auto; opacity: 0.4;
+    }
+
+}
+.playable-image:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+    img:nth-child(1) {
+        filter: blur(0px);
+        transform: scale(1.01);
+    }
+    img:nth-child(2) {
+        width: 14%; opacity: 0.8;
+    }
+}
+
