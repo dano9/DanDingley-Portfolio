@@ -5,14 +5,13 @@ const canvas = document.createElement("canvas");
 canvas.width = bgDimensions.width;
 canvas.height = bgDimensions.height;
 background.appendChild(canvas);
+console.log("created canvas");
 
 const titleUI = document.getElementById("title");
 const gameHud = document.getElementById("game-hud");
 
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
-// ctx.fillStyle = "green";
-// ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 const pixelSize = 8;
 const scaling = 1;
@@ -45,14 +44,19 @@ let lastPortfolioScrolPos = 0;
 
 let mousePoses = [];
 let detachdMPs = [];
+let mp = [];
 
-var GameLoop = function Loop() {
+let time = 0;
+let deltaTime = 0;
+
+export function GameLoop(dt) {
+    deltaTime = dt;
+    time += deltaTime;
     Update();
     Render();
-    // requestAnimationFrame(GameLoop);
     return true;
 }
-var GameStart = function Start()
+export function GameStart()
 {
     window.scrollTo(0,0);
     mouseY = canvas.height / 2;
@@ -64,22 +68,15 @@ var GameStart = function Start()
     canvas.height = bgDimensions.height;
     cWidth = canvas.width /scaling;
     cHeight = canvas.height /scaling;
-    //if (isMobile)
-    {
-    //ctx.fillStyle = "purple";
-    }
-    //else
-    {
-        ctx.fillStyle = "black";
-    }
+    ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    GameLoop();
+    // GameLoop();
     return true;
 }
 
 let touchHandler = function(event) {
-    if (immerseMode)
+    if (window.gameFocused)
     {
         let x = 0, y = 0;
     
@@ -95,7 +92,6 @@ let touchHandler = function(event) {
         }
         if (event.type == "touchstart")
         {
-            //console.log("started touch " + mouseX);
             startTapX = x;
             startTapY = y;
         }
@@ -106,14 +102,11 @@ let touchHandler = function(event) {
         lockedToMouse=true;
         startTapX = x;
         startTapY = y;
-        //mouseX = x;
-        //mouseY = 500;
 
         if (mouseX > cWidth - 10) {mouseX = cWidth - 10;}
         else if (mouseX < 10) {mouseX = 10;}
         if (mouseY > cHeight - 10) {mouseY = cHeight - 10;}
         else if (mouseY < 10) {mouseY = 10;}
-        //console.log("mouseX: " + mouseX);
     }
 
     mp = PixelSnap(mouseX,mouseY)
@@ -127,7 +120,6 @@ let touchHandler = function(event) {
 
 class LightWorm {
     constructor(wli, x, y, xv, yv) {
-        // Constructor: initialize object properties
         this.wli = wli;
         this.x = x;
         this.y = y;
@@ -144,7 +136,6 @@ class LightWorm {
         this.isDead = false;
         this.length = wormLength;
         this.caughtFrame = -1;
-       // this.respawnOnDeath;
     }
     RandomVals()
     {
@@ -154,17 +145,12 @@ class LightWorm {
         else if (side < 2) {this.x = cWidth; this.y = Math.random() * (cHeight - 1); this.xv = -1; this.yv = vel;}
         else if (side < 3) {this.y = 0; this.x = Math.random() *(cWidth); this.yv = 1; this.xv = vel;}
         else {this.y = cHeight; this.x = Math.random() * (cWidth); this.yv = -1; this.xv = vel;}
-        //this.x = canvas.width;//Math.random(0,canvas.width);
-        //this.y = canvas.height - 1;//Math.random(0,canvas.height);
-        //this.xv =-1;
-        //this.yv = 0;
     }
-    // Methods can be defined inside the class
     Update() {
         if (!this.isDead)
         {
-            this.x += this.xv * wormSpeed;
-            this.y += this.yv * wormSpeed;
+            this.x += this.xv * wormSpeed * deltaTime * 20;
+            this.y += this.yv * wormSpeed * deltaTime * 20;
             let oldpx = this.px; let oldpy = this.py;
             this.UpdatePPos();
             if (this.px != oldpx || this.py != oldpy)
@@ -201,10 +187,6 @@ class LightWorm {
     {
         if (this.needsToRender)
         {
-            this.lastPoses.forEach((pos, index) => {
-                //DrawSquare(pos[0], pos[1], "red");
-                //console.log(index);
-            });
             DrawSquare(this.px, this.py, "#772563");
             if (this.lastPoses.length > this.length && this.length > 0)
             {
@@ -273,9 +255,8 @@ class LightWorm {
 
 function SetupEvents()
 {
-    if (!isMobile)
+    if (!window.isMobile)
     {
-        // Event listener to track mouse movement
         window.addEventListener("mousemove", (event) => {
             if (!isCirclingTitle)
             {
@@ -289,20 +270,18 @@ function SetupEvents()
     {
         window.addEventListener('touchstart', touchHandler, { passive: false });
         window.addEventListener('touchmove', touchHandler, { passive: false });
-        // window.addEventListener('touchstart', touchHandler, { passive: false });
         canvas.addEventListener('touchmove', e=>{e.preventDefault()}, { passive: false });
-        //window.addEventListener('touchend', touchHandler, false);
     }
 }
 
 function Update()
 {
-    isCirclingTitle = (!immerseMode && (isMobile || time < 4));
-    if (immerseMode)
+    isCirclingTitle = (!window.gameFocused && (window.isMobile || time < 2));
+    if (window.gameFocused)
     {
         window.scrollBy(0,100);
     }
-    if (isCirclingTitle || (!mouseMoved && !isMobile && !immerseMode))
+    if (isCirclingTitle || (!mouseMoved && !window.isMobile && !window.gameFocused))
     {
         lockedToMouse = false;
         let titleRect = titleUI.getBoundingClientRect();
@@ -428,7 +407,6 @@ function Render()
     });
 }
 
-// Function to draw a red square at the mouse coordinates
 function DrawSquare(x, y, col, multi = 1) {
     mp = PixelSnap(x,y);
     x = mp[0]; y = mp[1];
@@ -447,7 +425,6 @@ function SliceMWorm(index)
     splitEffectFrame = 0;
     lastSplitPoint = mousePoses[index];
     detachdMPs = detachdMPs.concat(mousePoses.slice(index - 1, mousePoses.length));
-    //detachdMPs.push(mousePoses[mousePoses.length-1]);
     mousePoses = mousePoses.slice(0,index);
     mWormLength = index;
     lastBiteTime = time;
@@ -499,7 +476,6 @@ function DrawMouseWorm()
                 let dif = mag - pixelSize;
                 instance[0] += dif * ua;
                 instance[1] += dif * ub;
-                //mousePoses[index] = PixelSnap(instance[0] + (dif * ua), instance[1] + (dif * ub));
             }
             DrawSquare(instance[0],instance[1],col,1)
         }
@@ -515,21 +491,51 @@ function DrawMouseWorm()
         SliceMWorm(sTSlice);
     }
 }
-var GameResize = function Resize()
+export function GameResize()
 {
+    // bgDimensions = background.getBoundingClientRect();
+    // ctx.scale(scaling,scaling);
+    // canvas.width = bgDimensions.width;
+    // canvas.height = bgDimensions.height;
+    // cWidth = canvas.width /scaling;
+    // cHeight = canvas.height /scaling;
+    // ctx.fillStyle = "black";
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     bgDimensions = background.getBoundingClientRect();
-    ctx.scale(scaling,scaling);
+
     canvas.width = bgDimensions.width;
     canvas.height = bgDimensions.height;
-    //console.log(canvas.width);
-    cWidth = canvas.width /scaling;
-    cHeight = canvas.height /scaling;
+
+    ctx.setTransform(scaling, 0, 0, scaling, 0, 0);
+
+    cWidth = canvas.width / scaling;
+    cHeight = canvas.height / scaling;
+
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, cWidth, cHeight);
 }
 function PixelSnap(x, y) {
     return [
         Math.round(x / pixelSize) * pixelSize,
         Math.round(y / pixelSize) * pixelSize
     ].map(Math.round);
+}
+export function GameSwitch(isFocussed)
+{
+    if (isFocussed)
+    {
+        canvas.style.cursor = "none";
+        gameHud.style.display = "block";
+        if (isMobile)
+        {
+            mouseX = cWidth / 2;
+            mouseY = cHeight / 2;
+        }
+    }
+    else
+    {
+        canvas.style.cursor = "auto";
+        gameHud.style.display = "none";
+    }
 }

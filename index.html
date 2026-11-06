@@ -8,21 +8,16 @@
     </head>
     <body>
         <div class="page-box">
-            <div class="central-content">
+            <div class="central-content"> <!--Introduction-->
                 <img class="profile-image" src="Assets/ProfPic.jpg" alt="Image Description" width = "200px" title = "">
                 <h1 id = "title">Daniel Dingley</h1>
                 <p><em>Welcome to my portfolio.</em> I'm a budding software developer based in the UK and a recent graduate of Newcastle University seeking work in the tech industry.</p>
                 
-                <br><a href='https://docs.google.com/document/d/1bOQZHPyCz0rNhEZhji4fhamZ9FMNYeM4wQ_lrlSmBfU/edit?usp=sharing' target='_blank'>Check out my CV</a><br><br><br><br></p>
-                
-                <button id="project-filter-btn" >Featured Projects</button>
-                <p id="proj-filter-sub-label">A collection of projects I've worked on (click 'Featured Projects' to toggle)</p>
-            </div>
-            <div id = "projects-view">
+                <br><a href='https://docs.google.com/document/d/1bOQZHPyCz0rNhEZhji4fhamZ9FMNYeM4wQ_lrlSmBfU/edit?usp=sharing' target='_blank'>Check out my CV</a></p><br>
             </div>
             <div class="spacing"></div>
-            <div class="central-content align-center">
-                <h2><br><br>Qualifications And Skills:</h2>
+            <div class="central-content align-center"> <!--Qualifications and skills-->
+                <h2>Qualifications And Skills:</h2>
                 <div class="grid-lists">
                     <ul>
                         Computer Science BSc (G450):
@@ -48,33 +43,46 @@
                         </ul>
                     <ul>
                         Other:
-                        <li>8+ years of Unity indie game dev experience.</li>
-                        <li>C#, Java and Python fluency.</li>
-                        <li>Database design and SQL skills.</li>
-                        <li>Thorough understanding of a wide range of programs. (e.g: Blender, Photoshop, Gimp, FLStudio...)</li>
-                        <li>Proficient in Git workflow and team project collaboration.</li>
+                        <li>8+ years of hobbyist Unity experience.</li>
+                        <li>JavaScript and Python proficiency.</li>
+                        <li>Experience with Java and C#.</li>
+                        <li>Database design and SQL familiarity.</li>
+                        <li>Understanding of a wide range of programs. (e.g: Blender, Photoshop, Gimp, FLStudio...)</li>
+                        <li>Competent with Git workflow and team project collaboration.</li>
                     </ul>
                 </div>
             </div>
             <div class="spacing"></div>
+            <div class="central-content align-center"> <!--Featured Projects-->
+                <h2 class="no-border">My Projects:</h2>
+            </div>
+            <div id="projects-list"></div>
+            <div class="spacing"></div>
+            <div class="central-content align-center">   <!--Non featured Projects-->
+                <h2 class="no-border">Other Projects:</h2>
+            </div>
+            <div id = "other-projects-view"></div>
+            <div class="spacing"></div>
             <div class="spacing"></div>
             <div class="central-content">
-                <h2>Contact Me</h2>
-                <p>Thanks for checking out my portfolio if you have any questions or want to get in touch email me at  <br><br><a href='mailto:danieldingley9@gmail.com' target='_blank'>danieldingley9@gmail.com</a><br><br><br><br></p>
+                <h2>Contact Me</h2> 
+                <p>Thanks for checking out my portfolio if you have any questions or want to get in touch email me at  <br><br><a href='mailto:danieldingley9@gmail.com' target='_blank'>danieldingley9@gmail.com</a><br><br><br>
+                    or shoot me a message on <a href='https://www.linkedin.com/in/daniel-dingley-9a49b22a0' target='_blank'>LinkedIn</a><br><br><br></p>
                 
             </div>
+            
         </div>
 
         <div class="background"></div>
 
 
-        <button id="immerse-switch" class="quiet">Portfolio View(P)</button>
+        <button id="gameview-switch" class="quiet">Portfolio View(P)</button>
         <div id="game-hud">
 
         </div>
-        <script src ="InteractiveBG.js"></script>
-        <script src ="ProjectsView.js"></script>
-        <script src="Linker.js"></script>
+
+        <script type="module" src="app.js"></script>
+
         
     </body>
 </html>

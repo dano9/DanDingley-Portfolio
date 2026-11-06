@@ -83,6 +83,9 @@ h2 {
     font-size: 1.5em;
     border-bottom: 1px solid var(--outline-color);
 }
+h2.no-border {
+    border: none;
+}
 h3 {
     padding-top: 0px;
     padding-right: 0%;
@@ -102,7 +105,7 @@ p {
 }
 .spacing {
     display: block;
-    height: 50px;
+    height: 60px;
 }
 button
 {
@@ -122,9 +125,7 @@ button.quiet, button.quiet:active {
     color: var(--quiet-text-color);
     background-color: var(--quiet-btn-color);
 }
-button:hover {
-    background-color: color-mix(in hsl,var(--button-color), var(--highlight-color) 50%);
-}
+
 p.hud-p {
     text-align: center;
 }
@@ -192,9 +193,9 @@ em
 {
     font-weight: bold;
     font-style: normal;
-    color: var(--framing-color);
+    color: var(--highlight-color);
 }
-#immerse-switch 
+#gameview-switch
 {
     position: fixed;
     top:0;
@@ -210,6 +211,15 @@ em
     border-bottom: 1px solid var(--outline-color);
     overflow-x: hidden;
     overflow-y: hidden;
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+#pvp-content {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 #project-header-card
 {
@@ -220,6 +230,7 @@ em
 }
 #main-proj-title
 {
+    z-index: 100;
     margin-top:0;
 }
 #head-ifrm {
@@ -276,8 +287,7 @@ em
 
 
 
-
-#projects-view 
+#other-projects-view 
 {
     position: relative;
 }
@@ -291,11 +301,14 @@ em
     width: 100%;
     margin:0;
     padding:0;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    /* overflow-x: scroll;
+    overflow-y: hidden; */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
     position: relative;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 #pv-scroller ::-webkit-scrollbar { 
     display: none;  /* Older Safari and Chromium */
@@ -322,6 +335,8 @@ em
 .project-thumb {
     display: inline-block;
     position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
     box-sizing: border-box;
     
     /* border: 2px solid green; */
@@ -329,14 +344,16 @@ em
 }
 .project-thumb-img {
     pointer-events: none;
-    width: 100%;
-    height: 100%;
     transition: 0.2s;
     position: relative;
     z-index: -2;
     filter: brightness(50%);
     /* border-color:  var(--outline-color); */
     box-sizing:  border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     /* background-color: #bb35b0; */
 }
 .project-thumb.hover>.project-thumb-img {
@@ -394,8 +411,8 @@ em
         margin-top: -20px;
         padding: 0;
         
-        background-color: var(--framing-color);
-        box-shadow: 0 0 20px var(--framing-color);
+        background-color: var(--highlight-color);
+        box-shadow: 0 0 20px var(--highlight-color);
     }
     body::after {
         content: " ";
@@ -413,6 +430,9 @@ em
     {
         text-align: center;
         margin-top: 5px;
+    }
+    .spacing {
+        height: 20px;
     }
     
 }
@@ -458,6 +478,7 @@ em
         text-align: center;
         /* text-decoration: underline; */
     }
+    
     .grid-lists 
     {
         margin: 0 auto;
@@ -473,4 +494,28 @@ em
     .project-thumb-title {
         padding: 20% 10px 0 10px;
     }
+    button:hover {
+        background-color: color-mix(in hsl,var(--button-color), var(--highlight-color) 50%);
+    }
+}
+
+
+
+
+.project-segment {
+    --bgA: rgba(41, 41, 41, 0.5); --bgB: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(var(--bgA) 10%, var(--bgB), var(--bgA));
+    height: fit-content;
+    min-height: max-content;
+    display: flow-root;
+    padding: 8px;
+    > p {
+        margin: 5px;
+    }
+}
+
+.project-header {
+    margin: 10px 0 10px 0;
+    height: 1em;
+    text-align: center;
 }
