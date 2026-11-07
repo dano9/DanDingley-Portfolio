@@ -49,10 +49,12 @@ html, body {
 .central-content {
     padding: 5%;
     margin: 0;
+    max-width: 1100px;
 }
 .central-content-2 {
     padding: 2%;
     margin: 0;
+    max-width: 1100px;
 }
 .profile-image {
     display:block;
@@ -290,6 +292,10 @@ em
 #other-projects-view 
 {
     position: relative;
+    max-width: 1100px;
+    margin: auto;
+    border-left: 1px solid var(--outline-color);
+    border-right: 1px solid var(--outline-color);
 }
 
 
@@ -333,6 +339,7 @@ em
     /* transform: scale(-1,0); */
 }
 .project-thumb {
+    cursor: pointer;
     display: inline-block;
     position: relative;
     flex-shrink: 0;
@@ -439,8 +446,8 @@ em
 @media (min-width: 1020px) /* PCs only */
 {
     .page-box{
-        width: 70%;
-        max-width: 1000px;
+        width: 80%;
+        max-width: 1300px;
         /* box-shadow: 0 0 10px var(--framing-color); */
         border: 1px solid var(--quiet-framing-color);
         padding: 0;
@@ -452,6 +459,8 @@ em
     }
     .central-content{
         padding: 0 8%;
+        max-width: 900px;
+        margin: auto;
     }
     .profile-image {
         width: 200px;
@@ -497,36 +506,48 @@ em
     button:hover {
         background-color: color-mix(in hsl,var(--button-color), var(--highlight-color) 50%);
     }
+    #projects-list {
+        max-width: 1100px;
+        margin: auto;
+    }
 }
 
 
 
 
 .project-segment {
-    --bgA: rgba(41, 41, 41, 0.5); --bgB: rgba(0, 0, 0, 0.3);
-    background: linear-gradient(var(--bgA) 10%, var(--bgB), var(--bgA));
+    --bgA: rgba(31, 31, 31, 0.5); --bgB: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(var(--bgA) 5%, var(--bgB), var(--bgA));
     height: fit-content;
-    min-height: max-content;
+    min-height: 300px;
     display: flow-root;
     padding: 8px;
+    padding-bottom: 0;
     > p {
-        margin: 5px;
+        /* margin: 5px; */
+        margin: 5px 20px 15px 20px;
+    }
+    h4 {
+        font-size: 1.35em;
     }
 }
 
 .project-header {
-    margin: 10px 0 10px 0;
+    margin: 10px 0 20px 0;
     height: 1em;
     text-align: center;
+    font-size: 1.75em;
+    font-weight:bolder;
 }
 .playable-image {
-    height: fit-content; display: block; padding: 5px; background-color: grey; float: right; width: 50%; max-width: 40vw; position: relative;
+    height: fit-content; display: block; padding: 3px; float: right; width: 50%; max-width: 40vw; position: relative;
 
     * {
         pointer-events: none;
     }
     img:nth-child(1) {
-        filter: blur(2px);
+        box-sizing: border-box;
+        filter: blur(1px);
         width: 100%;
     }
     img:nth-child(2) {
@@ -536,13 +557,66 @@ em
 }
 .playable-image:hover {
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: grey;
     img:nth-child(1) {
         filter: blur(0px);
-        transform: scale(1.01);
+        transform: scale(1.007);
     }
     img:nth-child(2) {
-        width: 14%; opacity: 0.8;
+        width: 12%; opacity: 0.8;
+    }
+}
+.expand-btn {
+    display: block;
+    height: 1.4em;
+    cursor: pointer;
+    margin: 0; text-align: center; padding: 10px;
+    --bgA: rgba(60, 60, 60, 0.6); --bgB: rgba(20, 20, 20, 0.6); --bgC: rgba(40, 40, 40, 0.6);
+    background: linear-gradient(var(--bgC) 10%, var(--bgA) 85%, var(--bgC));
+    color: grey;
+    opacity: 0.6;
+    padding-top: 20px;
+    * {
+        pointer-events: none;
+    }
+    >span{
+        padding: 0;
+    }
+    >span::after{
+        content: " ▽";
+    }
+    >span::before{
+        content: "▽ ";
+    }
+}
+.expand-btn:hover {
+    padding-top: 20px;
+    background: linear-gradient(var(--bgA) 10%, 85%, var(--bgC));
+    color: lightgray;
+    font-weight: bold;
+    opacity: 1;
+    height: 1.4em;
+    >span::after{
+        content: " << ▼";
+    }
+    >span::before{
+        content: "▼ >> ";
+    }
+}
+.expand-btn.shrink {
+    >span::after{
+        content: " △";
+    }
+    >span::before{
+        content: "△ ";
+    }
+}
+.expand-btn.shrink:hover {
+    >span::after{
+        content: " << ▲";
+    }
+    >span::before{
+        content: "▲ >> ";
     }
 }
 

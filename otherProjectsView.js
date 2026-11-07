@@ -456,8 +456,8 @@ class ThumbnailScroller {
 
         event.preventDefault();
 
-        let deltaX = event.deltaX;
-        let deltaY = event.deltaY;
+        let deltaX = event.deltaX * 2;
+        let deltaY = -event.deltaY * 2;
 
         // Normalise wheel input
         if (event.deltaMode === 1) {
