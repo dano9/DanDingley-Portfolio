@@ -568,11 +568,13 @@ em
 }
 .expand-btn {
     display: block;
-    height: 1.4em;
+    width: 40%;
+    min-width: 300px;
+    height: 1.2em;
     cursor: pointer;
-    margin: 0; text-align: center; padding: 10px;
-    --bgA: rgba(60, 60, 60, 0.6); --bgB: rgba(20, 20, 20, 0.6); --bgC: rgba(40, 40, 40, 0.6);
-    background: linear-gradient(var(--bgC) 10%, var(--bgA) 85%, var(--bgC));
+    margin: auto; text-align: center; padding: 10px;
+    --bgA: rgba(60, 60, 60, 0.9); --bgB: rgba(20, 20, 20, 0.9); --bgC: rgba(40, 40, 40, 0.9);
+    background: linear-gradient(var(--bgA) 10%, 85%, var(--bgC));
     color: grey;
     opacity: 0.6;
     padding-top: 20px;
@@ -590,12 +592,11 @@ em
     }
 }
 .expand-btn:hover {
-    padding-top: 20px;
     background: linear-gradient(var(--bgA) 10%, 85%, var(--bgC));
     color: lightgray;
     font-weight: bold;
     opacity: 1;
-    height: 1.4em;
+    height: 1.2em;
     >span::after{
         content: " << ▼";
     }
